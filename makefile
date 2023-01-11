@@ -2,8 +2,8 @@ SOURCECLIENT = Client.cpp ClientVectorCheck.cpp
 OBJSCLIENT = Client.o ClientVectorCheck.o
 HEADERCLIENT = ClientVectorCheck.h
 OBJS	= Server.o Distance.o EuclideanDistance.o TaxicabGeometry.o MinkowskiDistance.o CanberraDistance.o ChebyshevDistance.o VectorCheck.o SelectSort.o Database.o RecieveCheckServer.o OpenFile.o
-SOURCE	= Server.cpp Distance.cpp EuclideanDistance.cpp TaxicabGeometry.cpp MinkowskiDistance.cpp CanberraDistance.cpp ChebyshevDistance.cpp VectorCheck.cpp SelectSort.cpp Database.cpp RecieveCheckServer.cpp OpenFile.cpp
-HEADER	= Distance.h EuclideanDistance.h TaxicabGeometry.h MinkowskiDistance.h CanberraDistance.h ChebyshevDistance.h VectorCheck.h SelectSort.h Database.h RecieveCheckServer.h OpenFile.h
+SOURCE	= Server.cpp distance/Distance.cpp distance/EuclideanDistance.cpp distance/TaxicabGeometry.cpp distance/MinkowskiDistance.cpp distance/CanberraDistance.cpp distance/ChebyshevDistance.cpp VectorCheck.cpp SelectSort.cpp Database.cpp RecieveCheckServer.cpp OpenFile.cpp
+HEADER	= distance/Distance.h distance/EuclideanDistance.h distance/TaxicabGeometry.h distance/MinkowskiDistance.h distance/CanberraDistance.h distance/ChebyshevDistance.h VectorCheck.h SelectSort.h Database.h RecieveCheckServer.h OpenFile.h
 OUTS	= server.out
 OUTC	= client.out
 CC	= g++
@@ -22,23 +22,23 @@ ClientVectorCheck.o: ClientVectorCheck.cpp
 Server.o: Server.cpp
 	$(CC) $(FLAGS) Server.cpp -std=c++11
 
-Distance.o: Distance.cpp
-	$(CC) $(FLAGS) Distance.cpp -std=c++11
+Distance.o: distance/Distance.cpp
+	$(CC) $(FLAGS) distance/Distance.cpp -std=c++11
 
-EuclideanDistance.o: EuclideanDistance.cpp
-	$(CC) $(FLAGS) EuclideanDistance.cpp -std=c++11
+EuclideanDistance.o: distance/EuclideanDistance.cpp
+	$(CC) $(FLAGS) distance/EuclideanDistance.cpp -std=c++11
 
-TaxicabGeometry.o: TaxicabGeometry.cpp
-	$(CC) $(FLAGS) TaxicabGeometry.cpp -std=c++11
+TaxicabGeometry.o: distance/TaxicabGeometry.cpp
+	$(CC) $(FLAGS) distance/TaxicabGeometry.cpp -std=c++11
 
-MinkowskiDistance.o: MinkowskiDistance.cpp
-	$(CC) $(FLAGS) MinkowskiDistance.cpp -std=c++11
+MinkowskiDistance.o: distance/MinkowskiDistance.cpp
+	$(CC) $(FLAGS) distance/MinkowskiDistance.cpp -std=c++11
 
-CanberraDistance.o: CanberraDistance.cpp
-	$(CC) $(FLAGS) CanberraDistance.cpp -std=c++11
+CanberraDistance.o: distance/CanberraDistance.cpp
+	$(CC) $(FLAGS) distance/CanberraDistance.cpp -std=c++11
 
-ChebyshevDistance.o: ChebyshevDistance.cpp
-	$(CC) $(FLAGS) ChebyshevDistance.cpp -std=c++11
+ChebyshevDistance.o: distance/ChebyshevDistance.cpp
+	$(CC) $(FLAGS) distance/ChebyshevDistance.cpp -std=c++11
 
 VectorCheck.o: VectorCheck.cpp
 	$(CC) $(FLAGS) VectorCheck.cpp -std=c++11
