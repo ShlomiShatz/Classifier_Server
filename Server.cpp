@@ -24,6 +24,7 @@
 
 
 using namespace std;
+
 /**
  * Returns the class of a given vector based on its k neares neighbors
  * @param vect the vector being checked
@@ -52,6 +53,7 @@ string retClass(vector<Database> vect, int k) {
     //Returns the maximum
     return maxClass;
 }
+
 /**
  * send to the client invalid message
  * @param client_sock socket for the client
@@ -64,6 +66,7 @@ void invalidSend(int client_sock) {
 		perror("operation system failed");
     }
 }
+
 /**
  * send to the client the type of the vector according to serverRecv
  * @param client_sock socket for the client
@@ -95,6 +98,7 @@ void sendType(int client_sock, vector<Database> db, map<string, Distance*> typeD
         perror("operation system failed");
     }
 }
+
 /**
  * receive message from the client
  * @param client_sock socket for the client
@@ -102,7 +106,7 @@ void sendType(int client_sock, vector<Database> db, map<string, Distance*> typeD
  * @param typeDistance - distance object map
  * @return if the connection need to continue
 */
-bool recv(int client_sock, vector<Database> db, map<string, Distance*> typeDistance){
+bool recvFromClient(int client_sock, vector<Database> db, map<string, Distance*> typeDistance){
     char buffer[4096];
     int expected_data_len = sizeof(buffer);
     string data = "";
@@ -121,13 +125,39 @@ bool recv(int client_sock, vector<Database> db, map<string, Distance*> typeDista
         }
     } while (data.find(finish) == string::npos);
     data = data.substr(0,data.size() - finish.size());
-    if (data == "-1") {
-        return false;
+    
+    string inputParam, inputVec, knum;
+    int loc = 0;
+     try {
+        //Cuts all extra spaces from the string
+        data = RecieveCheckServer::cutSpaces(data);
+        //If the input is '-1' close the socket
+        if (data == "-1") {
+            return false;
+        }
+        //Checking the distance type
+        loc = RecieveCheckServer::distCheck(data);
+        //Splitting to parameters and vector
+        inputParam = data.substr(loc, data.length() - 1);
+        //Checks the parameter and using the K number
+        knum = RecieveCheckServer::paramCheck(inputParam);
+        //Checks the K number
+        int k = RecieveCheckServer::numCheck(knum);
+        inputVec = data.substr(0, loc - 1);
+        //Checks the vector
+        inputVec = RecieveCheckServer::stringCheckAndFix(inputVec);
+        //Completes the string after all checks out
+        data = inputVec.append(" " + inputParam);
+    //If any turned bad, prints an error and continues the loop
+    } catch (exception &err) {
+        invalidSend(client_sock);
+        return 0;
     }
     RecieveCheckServer serverRecv(data);
     sendType(client_sock, db, typeDistance, serverRecv);
     return true;
 }
+
 /**
  * open socket ,recieve clients and give them answer
  * @param argc num of argv that recieved from the command line
@@ -142,7 +172,7 @@ int main(int argc, char** argv) {
     int sock = 0;
     try {
         //Checking the validity of the port number
-        const int port_no = VectorCheck::portCheck(argv[2]);
+        const int port_no = RecieveCheckServer::numCheck(argv[2]);
         struct sockaddr_in sin;
         memset(&sin, 0, sizeof(sin));
         sin.sin_family = AF_INET;
@@ -163,9 +193,6 @@ int main(int argc, char** argv) {
         cout << "invalid port" << endl;
         return 0;
     }
-    
-    
-    
     //Creates the Database vector based on the third argument
     vector<Database> db;
     try {
@@ -177,7 +204,7 @@ int main(int argc, char** argv) {
         return 0;
     }
     if (listen(sock, 5) < 0) {
-        perror("operation system failed");
+        perror("system operation failed");
         return 0;
     }
     //Defines a map based on the string in the fourth argument and the different Distance derivative classes
@@ -197,7 +224,7 @@ int main(int argc, char** argv) {
         }
         bool keepAlive = true;
         while(keepAlive){
-            keepAlive = recv(client_sock, db, typeDistance);
+            keepAlive = recvFromClient(client_sock, db, typeDistance);
         }
         close(client_sock);
     }
