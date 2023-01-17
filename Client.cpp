@@ -63,6 +63,7 @@ int main(int argc, char** argv) {
         string input, inputParam, inputVec, knum;
         //Getting the input from the user
         getline(cin, input);
+        if(input == "-1") break;
         input.append("\r\n\r\n");
         //Checks for the input and converts to char*
         int data_len = input.length();

@@ -151,7 +151,7 @@ bool recvFromClient(int client_sock, vector<Database> db, map<string, Distance*>
     //If any turned bad, prints an error and continues the loop
     } catch (exception &err) {
         invalidSend(client_sock);
-        return 0;
+        return true;
     }
     RecieveCheckServer serverRecv(data);
     sendType(client_sock, db, typeDistance, serverRecv);
