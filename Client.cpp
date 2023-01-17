@@ -63,30 +63,8 @@ int main(int argc, char** argv) {
         string input, inputParam, inputVec, knum;
         //Getting the input from the user
         getline(cin, input);
-        int loc = 0;
-        try {
-            //Cuts all extra spaces from the string
-            input = ClientVectorCheck::cutSpaces(input);
-            //If the input is '-1' close the socket
-            if (input == "-1") break;
-            //Checking the distance type
-            loc = ClientVectorCheck::distCheck(input);
-            //Splitting to parameters and vector
-            inputParam = input.substr(loc, input.length() - 1);
-            //Checks the parameter and using the K number
-            knum = ClientVectorCheck::paramCheck(inputParam);
-            //Checks the K number
-            int k = ClientVectorCheck::kCheck(knum);
-            inputVec = input.substr(0, loc - 1);
-            //Checks the vector
-            inputVec = ClientVectorCheck::stringCheckAndFix(inputVec);
-            //Completes the string after all checks out
-            input = inputVec.append(" " + inputParam + "\r\n\r\n");
-        //If any turned bad, prints an error and continues the loop
-        } catch (exception &err) {
-            cout << "invalid input" << endl;
-            continue;
-        }
+        if(input == "-1") break;
+        input.append("\r\n\r\n");
         //Checks for the input and converts to char*
         int data_len = input.length();
         char *data_addr = &input[0];
