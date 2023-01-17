@@ -1,3 +1,6 @@
+#ifndef DEFAULTIO_H_
+#define DEFAULTIO_H_
+
 #include <string>
 
 class DefaultIO {
@@ -9,3 +12,5 @@ public:
     virtual void write(string) = 0;
     
 };
+
+#endif

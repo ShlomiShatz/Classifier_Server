@@ -1,6 +1,11 @@
+#ifndef SOCKETIO_H_
+#define SOCKETIO_H_
+
 #include <string>
 
-class SocketIO : public DefaultIO {
+using namespace std;
+
+class SocketIO: public DefaultIO {
 
     public:
 
@@ -8,4 +13,7 @@ class SocketIO : public DefaultIO {
 
         void write(string input, int sock);
 
-}
+};
+
+#endif
+

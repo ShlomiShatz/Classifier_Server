@@ -1,6 +1,10 @@
-#include <string>
+#ifndef STANDARTIO_H_
+#define STANDARTIO_H_
 
-class StandartIO : public DefaultIO {
+#include <string>
+#include "DefaultIO.h"
+
+class StandartIO: public DefaultIO {
 
     public:
 
@@ -8,4 +12,6 @@ class StandartIO : public DefaultIO {
 
         void write(string s);
 
-}
+};
+
+#endif
