@@ -1,5 +1,5 @@
-#ifndef FIRSTCOMMAND_H_
-#define FIRSTCOMMAND_H_
+#ifndef UPLOADUNCLASSCOMMAND_H_
+#define UPLOADUNCLASSCOMMAND_H_
 
 #include <string>
 #include "DefaultIO.h"
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class FirstCommand : public Command {
+class UploadUnclassCommand : public Command {
 
 private:
 
@@ -16,7 +16,7 @@ private:
     
 public:
 	
-    FirstCommand();
+    UploadUnclassCommand();
 
 	void execute();
     

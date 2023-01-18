@@ -1,5 +1,5 @@
-#ifndef SECONDCOMMAND_H_
-#define SECONDCOMMAND_H_
+#ifndef CLASSIFYCOMMAND_H_
+#define CLASSIFYCOMMAND_H_
 
 #include <string>
 #include "DefaultIO.h"
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class SecondCommand : public Command {
+class ClassifyCommand : public Command {
 
 private:
 
@@ -15,8 +15,8 @@ private:
     DefaultIO dio;
     
 public:
-
-    SecondCommand();	
+	
+    ClassifyCommand();
 	void execute();
     
 };

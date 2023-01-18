@@ -1,5 +1,5 @@
-#ifndef FIFTHCOMMAND_H_
-#define FIFTHCOMMAND_H_
+#ifndef ALGOSETTINGCOMMAND_H_
+#define ALGOSETTINGCOMMAND_H_
 
 #include <string>
 #include "DefaultIO.h"
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class FifthCommand : public Command {
+class AlgoSettingCommand : public Command {
 
 private:
 
@@ -15,8 +15,8 @@ private:
     DefaultIO dio;
     
 public:
-	
-    FifthCommand();
+
+    AlgoSettingCommand();	
 	void execute();
     
 };

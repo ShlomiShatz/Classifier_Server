@@ -1,5 +1,5 @@
-#ifndef THIRDCOMMAND_H_
-#define THIRDCOMMAND_H_
+#ifndef DISPLAYRESULTSCOMMAND_H_
+#define DISPLAYRESULTSCOMMAND_H_
 
 #include <string>
 #include "DefaultIO.h"
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class ThirdCommand : public Command {
+class DisplayResultsCommand : public Command {
 
 private:
 
@@ -16,7 +16,7 @@ private:
     
 public:
 	
-    ThirdCommand();
+    DisplayResultsCommand();
 	void execute();
     
 };

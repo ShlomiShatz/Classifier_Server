@@ -1,5 +1,5 @@
-#ifndef FOURTHCOMMAND_H_
-#define FOURTHCOMMAND_H_
+#ifndef DOWNLOADRESULTSCOMMAND_H_
+#define DOWNLOADRESULTSCOMMAND_H_
 
 #include <string>
 #include "DefaultIO.h"
@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class FourthCommand : public Command {
+class DownloadResultsCommand : public Command {
 
 private:
 
@@ -16,7 +16,7 @@ private:
     
 public:
 	
-    FourthCommand();
+    DownloadResultsCommand();
 	void execute();
     
 };
