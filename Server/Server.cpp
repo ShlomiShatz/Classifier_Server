@@ -4,17 +4,17 @@
 #include <fstream>
 #include <sstream>
 #include <map>
-#include "distance/Distance.h"
+#include "../Distances/Distance.h"
 #include "SelectSort.h"
 #include "VectorCheck.h"
 #include "Database.h"
-#include "distance/EuclideanDistance.h"
-#include "distance/TaxicabGeometry.h"
-#include "distance/MinkowskiDistance.h"
-#include "distance/CanberraDistance.h"
-#include "distance/ChebyshevDistance.h"
+#include "../Distances/EuclideanDistance.h"
+#include "../Distances/TaxicabGeometry.h"
+#include "../Distances/MinkowskiDistance.h"
+#include "../Distances/CanberraDistance.h"
+#include "../Distances/ChebyshevDistance.h"
 #include "RecieveCheckServer.h"
-#include "OpenFile.h"
+#include "../OpenFile.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -71,7 +71,7 @@ void invalidSend(int client_sock) {
  * send to the client the type of the vector according to serverRecv
  * @param client_sock socket for the client
  * @param db - the vectors that got from csv file
- * @param typeDistance - distance object map
+ * @param typeDistance - Distances object map
  * @param serverRecv - Information about the received message
 */
 void sendType(int client_sock, vector<Database> db, map<string, Distance*> typeDistance, RecieveCheckServer serverRecv) {
@@ -82,7 +82,7 @@ void sendType(int client_sock, vector<Database> db, map<string, Distance*> typeD
         invalidSend(client_sock);
         return;
     }
-    //Calculates the distance of each vector and inserts it properly, based on the user's choice
+    //Calculates the Distances of each vector and inserts it properly, based on the user's choice
     for (auto& elem : db) {
         elem.setDistRes(typeDistance[distType]->getDistance(elem.getSpecs(), vect));
     }
@@ -103,7 +103,7 @@ void sendType(int client_sock, vector<Database> db, map<string, Distance*> typeD
  * receive message from the client
  * @param client_sock socket for the client
  * @param db - the vectors that got from csv file
- * @param typeDistance - distance object map
+ * @param typeDistance - Distances object map
  * @return if the connection need to continue
 */
 bool recvFromClient(int client_sock, vector<Database> db, map<string, Distance*> typeDistance){
@@ -135,7 +135,7 @@ bool recvFromClient(int client_sock, vector<Database> db, map<string, Distance*>
         if (data == "-1") {
             return false;
         }
-        //Checking the distance type
+        //Checking the Distances type
         loc = RecieveCheckServer::distCheck(data);
         //Splitting to parameters and vector
         inputParam = data.substr(loc, data.length() - 1);
