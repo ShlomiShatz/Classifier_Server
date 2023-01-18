@@ -5,9 +5,7 @@ using namespace std;
 
 
 
-DisplayResultsCommand::DisplayResultsCommand() {
-    this.description = "display results";
-}
+DisplayResultsCommand::DisplayResultsCommand() : description("display results") {}
 
 void DisplayResultsCommand::execute();
     

@@ -5,9 +5,7 @@ using namespace std;
 
 
 
-AlgoSettingCommand::AlgoSettingCommand() {
-    this.description = "algorithm settings";
-}
+AlgoSettingCommand::AlgoSettingCommand() : description("algorithm settings") {}
 
 void AlgoSettingCommand::execute();
     

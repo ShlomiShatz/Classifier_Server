@@ -5,9 +5,7 @@ using namespace std;
 
 
 
-ClassifyCommand::ClassifyCommand() {
-    this.description = "classify data";
-}
+ClassifyCommand::ClassifyCommand() : description("classify data") {}
 
 void ClassifyCommand::execute();
     

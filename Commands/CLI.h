@@ -7,8 +7,14 @@ using namespace std;
 
 class CLI {
 
+private:
+
+	vector<Command> coms;
+	DefaultIO dio;
+
 public:
 	
+	CLI();
 	static void start();
     
 };

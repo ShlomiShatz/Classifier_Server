@@ -5,9 +5,7 @@ using namespace std;
 
 
 
-DownloadResultsCommand::DownloadResultsCommand() {
-    this.description = "download results";
-}
+DownloadResultsCommand::DownloadResultsCommand() : description("download results") {}
 
 void DownloadResultsCommand::execute();
     
