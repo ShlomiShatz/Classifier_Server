@@ -4,6 +4,8 @@
 #include <string>
 #include "DefaultIO.h"
 
+using namespace std;
+
 class StandartIO: public DefaultIO {
 
     public:

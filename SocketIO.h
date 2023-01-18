@@ -2,10 +2,11 @@
 #define SOCKETIO_H_
 
 #include <string>
+#include "DefaultIO.h"
 
 using namespace std;
 
-class SocketIO: public DefaultIO {
+class SocketIO : public DefaultIO {
 
     public:
 
