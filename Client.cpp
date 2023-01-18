@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
     }
     //The loop that runs the client
     while (true) {
-        string input, inputParam, inputVec, knum;
+        string input;
         //Getting the input from the user
         getline(cin, input);
         if(input == "-1") break;
