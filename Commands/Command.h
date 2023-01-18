@@ -2,7 +2,7 @@
 #define COMMAND_H_
 
 #include <string>
-#include "DefaultIO.h"
+#include "../IOs/DefaultIO.h"
 
 using namespace std;
 
@@ -15,7 +15,9 @@ private:
 
 public:
 	
-	virtual void execute() = 0;
+	virtual void execute();
+
+    ~Command() {}
     
 };
 

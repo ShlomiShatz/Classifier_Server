@@ -2,7 +2,7 @@
 #define DISPLAYRESULTSCOMMAND_H_
 
 #include <string>
-#include "DefaultIO.h"
+#include "../IOs/DefaultIO.h"
 #include "Command.h"
 
 using namespace std;

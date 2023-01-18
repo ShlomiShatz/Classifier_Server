@@ -7,5 +7,5 @@ using namespace std;
 
 ClassifyCommand::ClassifyCommand() : description("classify data") {}
 
-void ClassifyCommand::execute();
+void ClassifyCommand::execute() {}
     

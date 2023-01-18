@@ -9,9 +9,11 @@ class DefaultIO {
 	
 public:
 	
-	virtual string read() = 0;
+	virtual string read();
 
-    virtual void write(string) = 0;
+    virtual void write(string);
+
+    ~DefaultIO() {}
     
 };
 

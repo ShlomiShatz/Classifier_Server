@@ -7,5 +7,7 @@ using namespace std;
 
 DisplayResultsCommand::DisplayResultsCommand() : description("display results") {}
 
-void DisplayResultsCommand::execute();
+void DisplayResultsCommand::execute() {
+    
+}
     

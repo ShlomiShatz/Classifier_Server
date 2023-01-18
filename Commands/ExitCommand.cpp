@@ -7,5 +7,5 @@ using namespace std;
 
 ExitCommand::ExitCommand() : description("exit") {}
 
-void ExitCommand::execute();
+void ExitCommand::execute() {}
     

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-UploadUnclassCommand::UploadUnclassCommand() : description("upload an unclassified csv data file") {}
+UploadUnclassCommand::UploadUnclassCommand() : description("upload an unclassified csv data file"){}
 
-void UploadUnclassCommand::execute();
+void UploadUnclassCommand::execute() {}
     

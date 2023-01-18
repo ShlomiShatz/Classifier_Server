@@ -2,6 +2,7 @@
 #define CLI_H_
 
 #include "Command.h"
+#include <vector>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ private:
 public:
 	
 	CLI();
-	static void start();
+	void start();
     
 };
 

@@ -7,12 +7,17 @@
 using namespace std;
 
 class SocketIO : public DefaultIO {
+    private:
+
+        int sock;
 
     public:
 
-        string read(int sock);
+        SocketIO(int sock) : sock(sock) {}
 
-        void write(string input, int sock);
+        string read();
+
+        void write(string input);
 
 };
 

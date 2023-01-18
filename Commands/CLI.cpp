@@ -6,7 +6,7 @@ using namespace std;
 
 CLI::CLI() {}
 
-CLI::start() {
+void CLI::start() {
     
     
 }

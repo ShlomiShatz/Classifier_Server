@@ -10,6 +10,8 @@ class StandartIO: public DefaultIO {
 
     public:
 
+        StandartIO();
+
         string read();
 
         void write(string s);

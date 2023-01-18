@@ -9,14 +9,14 @@
 
 using namespace std;
 
-string SocketIO::read(int sock) {
+string SocketIO::read() {
     string fullMsg = "";
     int finish = 0;
     do {
             //Receives the data from the server
             char buffer[4096] = {0};
             int expected_data_len = sizeof(buffer);
-            int read_bytes = recv(sock, buffer, expected_data_len, 0);
+            int read_bytes = recv(this.sock, buffer, expected_data_len, 0);
             if (read_bytes == 0) {
                 continue;
             }
@@ -33,13 +33,13 @@ string SocketIO::read(int sock) {
         return fullMsg;
 }
 
-void SocketIO::write(string input, int sock) {
+void SocketIO::write(string input) {
     input.append("\r\n\r\n");
     //Checks for the input and converts to char*
     int data_len = input.length();
     char *data_addr = &input[0];
     //Send the message to the server
-    int sent_bytes = send(sock, data_addr, data_len, 0);
+    int sent_bytes = send(this.sock, data_addr, data_len, 0);
     //Check if the message was sent
     if (sent_bytes < 0) cout << "error sending message" << endl;
 }
