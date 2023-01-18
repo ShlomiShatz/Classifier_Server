@@ -9,7 +9,7 @@ class CLI {
 
 public:
 	
-	void start();
+	static void start();
     
 };
 
