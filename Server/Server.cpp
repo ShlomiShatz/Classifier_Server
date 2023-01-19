@@ -60,8 +60,8 @@ int main(int argc, char** argv) {
             perror("system operation failed");
             continue;
         }
-        SocketIO *sockio = new SocketIO(client_sock);
-        CLI cli = new CLI(sockio);
-        cli.start();
+        SocketIO sockio(client_sock);
+        // CLI cli(&sockio);
+        // cli.start();
     }
 }

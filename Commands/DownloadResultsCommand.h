@@ -12,7 +12,7 @@ class DownloadResultsCommand : public Command {
 private:
 
     string description;
-    DefaultIO dio;
+    DefaultIO *dio;
     
 public:
 	

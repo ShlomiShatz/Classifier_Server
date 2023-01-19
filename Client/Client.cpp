@@ -60,15 +60,15 @@ int main(int argc, char** argv) {
         cout << "invalid port or ip" << endl;
         return 0;
     }
-    SocketIO *sockio = new SocketIO(sock);
-    StandartIO *standio = new StandartIO();
+    SocketIO sockio(sock);
+    StandartIO standio;
     //The loop that runs the client
     while (true) {
         //Takes the full message from the server
-        string fullMsg = sockio->read();
-        standio->write(fullMsg);
+        string fullMsg = sockio.read();
+        standio.write(fullMsg);
         if(fullMsg == "Please upload your local CSV file." || fullMsg == "Please upload your local test CSV file.") {
-            string input = standio->read();
+            string input = standio.read();
             string fileToSend;
             try {
                 OpenFile classifyFile(input);
@@ -76,35 +76,35 @@ int main(int argc, char** argv) {
             } catch (int exc) {
                 //If an exception was thrown, sends an error and closes the program
                 cout << "invalid input" << endl;
-                sockio->write("-1");
+                sockio.write("-1");
                 continue;
             }
             try {
-                sockio->write(fileToSend);
+                sockio.write(fileToSend);
             } catch (exception &err) {
                 cout << "failed to send file" << endl;
                 continue;
             }
 
         }
-        string input = standio->read();
+        string input = standio.read();
         try {
-            sockio->write(input);
+            sockio.write(input);
         } catch (exception &err) {
             cout << "failed to send message" << endl;
             continue;
         }
         if(input == "5") {
-            string fileInput = sockio->read();
+            string fileInput = sockio.read();
             if (fileInput != "please upload data" && fileInput != "please classify the data") {
-                string path = standio->read();
+                string path = standio.read();
                 ofstream file(path);
                 file << fileInput;
             } else {
-                standio->write(fileInput);
+                standio.write(fileInput);
             }
         } else if(input == "8") {
-            sockio->write(input);
+            sockio.write(input);
             break;
         }
     }
