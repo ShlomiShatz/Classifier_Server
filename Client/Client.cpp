@@ -7,8 +7,10 @@
 #include <string.h>
 #include <vector>
 #include <fstream>
-#include <sstream>
 #include "ClientVectorCheck.h"
+#include "../IOs/SocketIO.h"
+#include "../IOs/StandartIO.h"
+#include "../OpenFile.h"
 
 using namespace std;
 
@@ -58,48 +60,54 @@ int main(int argc, char** argv) {
         cout << "invalid port or ip" << endl;
         return 0;
     }
+    SocketIO sockio(sock);
+    StandartIO standio;
     //The loop that runs the client
     while (true) {
-        string input;
-        //Getting the input from the user
-        getline(cin, input);
-        if(input == "-1") break;
-        input.append("\r\n\r\n");
-        //Checks for the input and converts to char*
-        int data_len = input.length();
-        char *data_addr = &input[0];
-        //Send the message to the server
-        int sent_bytes = send(sock, data_addr, data_len, 0);
-        //Check if the message was sent
-        if (sent_bytes < 0) {
-            cout << "error sending message" << endl;
+        //Takes the full message from the server
+        string fullMsg = sockio.read();
+        standio.write(fullMsg);
+        if(fullMsg == "Please upload your local CSV file." || fullMsg == "Please upload your local test CSV file.") {
+            string input = standio.read();
+            string fileToSend;
+            try {
+                OpenFile classifyFile(input);
+                fileToSend = classifyFile.ClientFile();
+            } catch (int exc) {
+                //If an exception was thrown, sends an error and closes the program
+                cout << "invalid input" << endl;
+                sockio.write("-1");
+                continue;
+            }
+            try {
+                sockio.write(fileToSend);
+            } catch (exception &err) {
+                cout << "failed to send file" << endl;
+                continue;
+            }
+
+        }
+        string input = standio.read();
+        try {
+            sockio.write(input);
+        } catch (exception &err) {
+            cout << "failed to send message" << endl;
             continue;
         }
-        //Takes the full message from the server
-        string fullMsg = "";
-        int finish = 0;
-        //Loop that takes all the input from the server
-        do {
-            //Receives the data from the server
-            char buffer[4096] = {0};
-            int expected_data_len = sizeof(buffer);
-            int read_bytes = recv(sock, buffer, expected_data_len, 0);
-            if (read_bytes == 0) {
+        if(input == "5") {
+            string fileInput = sockio.read();
+            if (fileInput != "please upload data" && fileInput != "please classify the data") {
+                string path = standio.read();
+                ofstream file(path);
+                file << fileInput;
+            } else {
+                standio.write(fileInput);
                 continue;
             }
-            else if (read_bytes < 0) {
-                cout << "error reading message" << endl;
-                continue;
-            }
-            string partMsg(buffer);
-            fullMsg.append(partMsg);
-            finish = fullMsg.find("\r\n\r\n");
-        } while(finish == string::npos);
-        //Fixes the message and prints it
-        fullMsg = fullMsg.substr(0, finish);
-        cout << fullMsg << endl;
+        } else if(input == "8") {
+            sockio.write(input);
+            break;
+        }
     }
-    //When the loop brakes, closes the socket and closing the program
-    close(sock);
     return 0;
 }

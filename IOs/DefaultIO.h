@@ -8,12 +8,11 @@ using namespace std;
 class DefaultIO {
 	
 public:
-	
-	virtual string read();
 
-    virtual void write(string);
+	virtual string read() = 0;
 
-    ~DefaultIO() {}
+    virtual void write(string) = 0;
+
     
 };
 

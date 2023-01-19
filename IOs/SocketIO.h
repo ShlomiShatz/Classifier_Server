@@ -13,7 +13,11 @@ class SocketIO : public DefaultIO {
 
     public:
 
-        SocketIO(int sock) : sock(sock) {}
+        SocketIO();
+
+        SocketIO(int sock);
+
+        ~SocketIO();
 
         string read();
 

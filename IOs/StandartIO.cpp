@@ -6,6 +6,8 @@ using namespace std;
 
 StandartIO::StandartIO() {}
 
+StandartIO::~StandartIO() {}
+
 string StandartIO::read() {
     string input;
     //Getting the input from the user
