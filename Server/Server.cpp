@@ -21,6 +21,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include "../IOs/SocketIO.h"
+#include "../Commands/CLI.h"
 
 
 using namespace std;
@@ -165,14 +167,14 @@ bool recvFromClient(int client_sock, vector<Database> db, map<string, Distance*>
  * @return 0 when the function end
 */
 int main(int argc, char** argv) {
-    if (argc != 3) {
+    if (argc != 2) {
 	cout << "invalid input" << endl; 
         return 0;
     }
     int sock = 0;
     try {
         //Checking the validity of the port number
-        const int port_no = RecieveCheckServer::numCheck(argv[2]);
+        const int port_no = RecieveCheckServer::numCheck(argv[1]);
         struct sockaddr_in sin;
         memset(&sin, 0, sizeof(sin));
         sin.sin_family = AF_INET;
@@ -193,39 +195,19 @@ int main(int argc, char** argv) {
         cout << "invalid port" << endl;
         return 0;
     }
-    //Creates the Database vector based on the third argument
-    vector<Database> db;
-    try {
-        OpenFile classifyFile(argv[1]);
-        db = classifyFile.CreateDatabase();
-    } catch (int exc) {
-        //If an exception was thrown, sends an error and closes the program
-        cout << "Invalid file input!" << endl;
-        return 0;
-    }
     if (listen(sock, 5) < 0) {
         perror("system operation failed");
         return 0;
     }
-    //Defines a map based on the string in the fourth argument and the different Distance derivative classes
-    map<string, Distance*> typeDistance;
-    typeDistance["AUC"] = new EuclideanDistance();
-    typeDistance["MAN"] = new TaxicabGeometry();
-    typeDistance["CHB"] = new ChebyshevDistance();
-    typeDistance["CAN"] = new CanberraDistance();
-    typeDistance["MIN"] = new MinkowskiDistance();
     while(true) {
         struct sockaddr_in client_sin;
         unsigned int addr_len = sizeof(client_sin);
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
         if (client_sock < 0) {
-            perror("operation system failed");
+            perror("system operation failed");
             continue;
         }
-        bool keepAlive = true;
-        while(keepAlive){
-            keepAlive = recvFromClient(client_sock, db, typeDistance);
-        }
-        close(client_sock);
+        CLI cli = new CLI(new SocketIO(client_sock));
+        cli.start();
     }
 }

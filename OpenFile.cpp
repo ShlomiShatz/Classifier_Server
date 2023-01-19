@@ -5,14 +5,13 @@
 #include "Server/Database.h"
 #include "OpenFile.h"
 
+using namespace std;
 
 /**
 * Constructor
 * @param name - the path of the file.
 */
-OpenFile::OpenFile(string name){
-    fileName = name;
-}
+OpenFile::OpenFile(string name): fileName(name) {}
 /**
  * The function used to create a Database vector, based on the file name
  * @param fileName the name of the file(expected to be in the same folder)
@@ -73,4 +72,12 @@ vector<Database> OpenFile::CreateDatabase() {
     f.close();
     if (vect.size() == 0) throw 0;
     return vect;
+}
+
+string OpenFile::ClientFile() {
+    ifstream f(fileName);
+    stringstream buffer;
+    buffer << f.rdbuf();
+    if (f.is_open()) f.close();
+    return buffer.str();
 }

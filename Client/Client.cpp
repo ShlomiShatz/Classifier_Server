@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include "ClientVectorCheck.h"
+#include "../IOs/SocketIO.h"
 
 using namespace std;
 
@@ -58,23 +59,9 @@ int main(int argc, char** argv) {
         cout << "invalid port or ip" << endl;
         return 0;
     }
+    SocketIO sio = new SocketIO(sock);
     //The loop that runs the client
     while (true) {
-        string input;
-        //Getting the input from the user
-        getline(cin, input);
-        if(input == "-1") break;
-        input.append("\r\n\r\n");
-        //Checks for the input and converts to char*
-        int data_len = input.length();
-        char *data_addr = &input[0];
-        //Send the message to the server
-        int sent_bytes = send(sock, data_addr, data_len, 0);
-        //Check if the message was sent
-        if (sent_bytes < 0) {
-            cout << "error sending message" << endl;
-            continue;
-        }
         //Takes the full message from the server
         string fullMsg = "";
         int finish = 0;
@@ -98,6 +85,47 @@ int main(int argc, char** argv) {
         //Fixes the message and prints it
         fullMsg = fullMsg.substr(0, finish);
         cout << fullMsg << endl;
+        if(fullMsg == "Please upload your local CSV file." || fullMsg == "Please upload your local test CSV file.") {
+            string input;
+            //Getting the input from the user
+            getline(cin, input);
+            char *data_addr;
+            try {
+                OpenFile classifyFile(input);
+                data_addr = classifyFile.ClientFile();
+            } catch (int exc) {
+                //If an exception was thrown, sends an error and closes the program
+                cout << "invalid input" << endl;
+                continue;
+            }
+            //Checks for the input and converts to char*
+            int data_len = strlen(data_len);
+            //Send the message to the server
+            int sent_bytes = send(sock, data_addr, data_len, 0);
+            //Check if the message was sent
+            if (sent_bytes < 0) {
+                cout << "error sending message" << endl;
+                continue;
+            }
+            continue;//Insert SocketIO, handle exceptions
+        }
+        string input;
+        //Getting the input from the user
+        getline(cin, input);
+        if(input == "5") {
+           //Input path and receive file********************************************** 
+        }
+        input.append("\r\n\r\n");
+        //Checks for the input and converts to char*
+        int data_len = input.length();
+        char *data_addr = &input[0];
+        //Send the message to the server
+        int sent_bytes = send(sock, data_addr, data_len, 0);
+        //Check if the message was sent
+        if (sent_bytes < 0) {
+            cout << "error sending message" << endl;
+            continue;
+        }
     }
     //When the loop brakes, closes the socket and closing the program
     close(sock);

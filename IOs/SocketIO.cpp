@@ -9,6 +9,9 @@
 
 using namespace std;
 
+
+SocketIO::SocketIO(int sock) : sock(sock) {}
+
 string SocketIO::read() {
     string fullMsg = "";
     int finish = 0;
