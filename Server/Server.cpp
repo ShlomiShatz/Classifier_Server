@@ -61,11 +61,7 @@ int main(int argc, char** argv) {
             continue;
         }
         SocketIO *sockio = new SocketIO(client_sock);
-        while(true) {
-            sockio->write("Hey");
-            sockio->read();
-        }
-        // CLI cli = new CLI(sockio);
-        // cli.start();
+        CLI cli = new CLI(sockio);
+        cli.start();
     }
 }
