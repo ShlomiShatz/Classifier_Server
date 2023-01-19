@@ -12,6 +12,10 @@ using namespace std;
 
 SocketIO::SocketIO(int sock) : sock(sock) {}
 
+SocketIO::~SocketIO() {
+    close(sock);
+}
+
 string SocketIO::read() {
     string fullMsg = "";
     int finish = 0;
@@ -19,7 +23,7 @@ string SocketIO::read() {
             //Receives the data from the server
             char buffer[4096] = {0};
             int expected_data_len = sizeof(buffer);
-            int read_bytes = recv(this.sock, buffer, expected_data_len, 0);
+            int read_bytes = recv(sock, buffer, expected_data_len, 0);
             if (read_bytes == 0) {
                 continue;
             }
@@ -42,7 +46,8 @@ void SocketIO::write(string input) {
     int data_len = input.length();
     char *data_addr = &input[0];
     //Send the message to the server
-    int sent_bytes = send(this.sock, data_addr, data_len, 0);
+    int sent_bytes = send(sock, data_addr, data_len, 0);
     //Check if the message was sent
-    if (sent_bytes < 0) cout << "error sending message" << endl;
+    if (sent_bytes < 0) throw 0;
 }
+
