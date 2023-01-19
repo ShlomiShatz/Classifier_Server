@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
             continue;
         }
         SocketIO sockio(client_sock);
-        // CLI cli(&sockio);
-        // cli.start();
+        CLI cli(&sockio);
+        cli.start();
     }
 }

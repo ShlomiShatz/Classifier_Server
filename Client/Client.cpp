@@ -102,6 +102,7 @@ int main(int argc, char** argv) {
                 file << fileInput;
             } else {
                 standio.write(fileInput);
+                continue;
             }
         } else if(input == "8") {
             sockio.write(input);
