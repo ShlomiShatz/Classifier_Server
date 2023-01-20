@@ -48,7 +48,70 @@ bool VectorCheck::exponentCheck(string s) {
     //If it does not exists return false
     return false;
 }
-
+/**
+ * The function checks the validity of a given string and converts it to a string vector
+ * @param s the string being checked and converted
+ * @return the returned string vector
+ */
+vector<string> VectorCheck::stringToVectorString(string s){
+    string temp;
+    vector<string> vect;
+    stringstream SStr(s);
+    //Splits the string based on the spaces in it
+    while (getline(SStr, temp, ',')) {
+        //Checks if the string is empty, if it is continue the loop
+        if (!temp.length()) continue;
+        //Checks for excessive spaces in the beginning of the object, and cuts it accordingly
+        int j = 0;
+        int tlen = temp.length();
+        //After cutting the string, if the first char of it is not a digit, dot or a minus, throws an exception
+        if (!isdigit(temp[0]) && temp[0] != '-' && temp[0] != '.') throw 0;
+        //If it is a dot alone, add zeros
+        if (tlen == 1 && temp[0] == '.') temp = "0.0";
+        //if the temp is '-' only, throws an exception
+        if (tlen == 1 && temp[0] == '-') throw 0;
+        //If there are point and minus combined, throws an exception
+        if (tlen > 1) if (temp[0] == '-' && temp[1] == '.') throw 0;
+        //Checks that the number is not too big
+        if (tlen > 250) throw 0;
+        //If there is more than one digit in the number, checks its validity
+        if (tlen > 1) {
+            //If the last char is not a digit, throws an exception
+            if (!isdigit(temp[tlen - 1]) && temp[tlen - 1] != '.') throw 0;
+            if (exponentCheck(temp)) {
+                //Adds to value to the vector
+                vect.push_back(temp);
+                continue;
+            }
+            //Checks if there is only one dot, if it exists
+            bool pointFlag = false;
+            for (j = 0; j < tlen; j++) {
+                if (temp[j] == '.') {
+                    //If there are more than one dot, throws an exception
+                    if (pointFlag) throw 0;
+                    else {
+                        pointFlag = true;
+                        continue;
+                    }
+                } else {
+                    //If a part of the string is not a dot, makes sure it is a digit or a valid exponent
+                    if (!isdigit(temp[j])) {
+                        if (tlen > 3 && j == (tlen - 3) && (temp[j] == 'e' || temp[j] == 'E')){
+                            if (temp[++j] == '-') {
+                                j++;
+                                continue;
+                            }
+                        }
+                        throw 0;
+                    }
+                }
+            }
+        }
+        //Adds to value to the vector
+        vect.push_back(temp);
+    }
+    return vect;
+}
 /**
  * The function checks the validity of a given string and converts it to a double vector
  * @param s the string being checked and converted
