@@ -9,11 +9,6 @@ using namespace std;
 
 class DisplayResultsCommand : public Command {
 
-private:
-
-    string description;
-    DefaultIO *dio;
-    
 public:
 	
     DisplayResultsCommand();

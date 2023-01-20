@@ -5,7 +5,9 @@ using namespace std;
 
 
 
-ExitCommand::ExitCommand() : description("exit") {}
+ExitCommand::ExitCommand() {
+    Command::m_description = "exit";
+}
 
 void ExitCommand::execute() {}
     

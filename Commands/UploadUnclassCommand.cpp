@@ -1,20 +1,23 @@
 #include <string>
+#include <sstream>
 #include "UploadUnclassCommand.h"
 #include "../Server/VectorCheck.h"
 
 using namespace std;
 
-UploadUnclassCommand::UploadUnclassCommand() : description("upload an unclassified csv data file"){}
+UploadUnclassCommand::UploadUnclassCommand() {
+    Command::m_description = "upload an unclassified csv data file";
+}
 
-//check if the end char is /n
+//check if the end char is \n
 vector<Database> UploadUnclassCommand::createDatabase(string input){
     vector<string> row;
     vector<Database> vect;
-    string line, word;
+    string line, word, temp;
     bool didPassFirst = false;
     int rowSize = 0;
-    int found = input.find("/n");
-    if(found != string::npos){
+    int found = input.find("\n");
+    if (found == string::npos){
         throw 0;
     }
     string subString = input.substr(0,found);
@@ -26,11 +29,10 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     vect.push_back(db);
     if (subString.length() != 0){
         row.push_back(subString);
-    }else {
+    } else {
         throw 0;
     }
-    while (found != string::npos)
-    {
+    while (found != string::npos) {
         row.clear();
         string subString = input.substr(0,found);
         row = VectorCheck::stringToVectorString(subString);
@@ -44,25 +46,25 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     return vect;
 }
 void UploadUnclassCommand::execute() {
-    dio.write("Please upload your local train CSV file.");
-    string data = dio.read();
+    Command::m_dio->write("Please upload your local train CSV file.");
+    string data = Command::m_dio->read();
     try{
         vectorClassify = UploadUnclassCommand::createDatabase(data);
-    }catch(int e){
-        dio.write("invalid input");
+    } catch(int e){
+        Command::m_dio->write("invalid input");
         return;
     }
-    dio.write("Upload complete.");
-    dio.write("Please upload your local test CSV file.");
-    string data = dio.read();
+    Command::m_dio->write("Upload complete.");
+    Command::m_dio->write("Please upload your local test CSV file.");
+    data = Command::m_dio->read();
     try{
         vectorUnClassify = UploadUnclassCommand::createDatabase(data);
     }catch(int e){
-        dio.write("invalid input");
+        Command::m_dio->write("invalid input");
         vectorClassify.clear();
         return;
     }
-    dio.write("Upload complete.");
+    Command::m_dio->write("Upload complete.");
 }
 
     

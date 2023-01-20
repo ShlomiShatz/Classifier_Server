@@ -3,14 +3,13 @@
 
 using namespace std;
 
-
-
-AlgoSettingCommand::AlgoSettingCommand() : description("algorithm settings") {
+AlgoSettingCommand::AlgoSettingCommand() {
+    Command::m_description = "algorithm settings";
     k = 5;
     distanceMetric = "AUC";
 }
 void AlgoSettingCommand::execute() {
-    string data = dio.read();
+    
     
 }
     

@@ -8,11 +8,6 @@
 using namespace std;
 
 class DownloadResultsCommand : public Command {
-
-private:
-
-    string description;
-    DefaultIO *dio;
     
 public:
 	

@@ -8,15 +8,17 @@ using namespace std;
 
 class Command {
 
-private:
+protected:
 
-    string description;
-    DefaultIO *dio;
+    string m_description;
+    DefaultIO *m_dio;
 
 public:
 	
 	virtual void execute();
 
+    string getDescription() { return m_description; }
+    
     ~Command() {}
     
 };

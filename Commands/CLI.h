@@ -9,13 +9,14 @@ using namespace std;
 class CLI {
 private:
 
-	vector<Command> coms;
-	DefaultIO *dio;
+	vector<Command> m_coms;
+	DefaultIO *m_dio;
 
 public:
 	
-	CLI();
+	CLI(DefaultIO* dio);
 	void start();
+	string printMenu();
     
 };
 

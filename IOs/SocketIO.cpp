@@ -50,7 +50,7 @@ void SocketIO::write(string input) {
         int data_len = current.length();
         char *data_addr = &current[0];
         //Send the message to the server
-        int sent_bytes = send(this.sock, data_addr, data_len, 0);
+        int sent_bytes = send(sock, data_addr, data_len, 0);
         //Check if the message was sent
         if (sent_bytes < 0) {
             cout << "error sending message" << endl;
@@ -69,7 +69,6 @@ void SocketIO::write(string input) {
 
     if (sent_bytes < 0) {
         cout << "error sending message" << endl;
-        break;
     }
     
 }

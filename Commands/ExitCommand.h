@@ -9,11 +9,6 @@ using namespace std;
 
 class ExitCommand : public Command {
 
-private:
-
-    string description;
-    DefaultIO *dio;
-    
 public:
 	
     ExitCommand();

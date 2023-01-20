@@ -5,7 +5,9 @@ using namespace std;
 
 
 
-DownloadResultsCommand::DownloadResultsCommand() : description("download results") {}
+DownloadResultsCommand::DownloadResultsCommand() {
+    Command::m_description = "download results";
+}
 
 void DownloadResultsCommand::execute() {}
     
