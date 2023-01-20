@@ -7,7 +7,6 @@
 using namespace std;
 
 class CLI {
-
 private:
 
 	vector<Command> coms;
