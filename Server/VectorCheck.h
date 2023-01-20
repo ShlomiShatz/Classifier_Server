@@ -21,6 +21,12 @@ private:
     static bool exponentCheck(string s);
 
 public:
+    /**
+     * The function checks the validity of a given string and converts it to a string vector
+     * @param s the string being checked and converted
+     * @return the returned string vector
+    */
+    static vector<string> stringToVectorString(string s);
 
     /**
      * The function checks the validity of a given string and converts it to a double vector

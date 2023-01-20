@@ -13,12 +13,12 @@ private:
 
     string description;
     DefaultIO dio;
+    int k;
+    string distanceMetric;
     
 public:
-
     AlgoSettingCommand();	
 	void execute();
-    
 };
 
 #endif
