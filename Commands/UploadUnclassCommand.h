@@ -12,10 +12,9 @@ class UploadUnclassCommand : public Command {
 
 private:
 
-    string description;
-    DefaultIO dio;
     vector<Database> vectorClassify;
     vector<Database> vectorUnClassify;
+
     
 public:
 	

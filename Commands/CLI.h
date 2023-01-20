@@ -10,7 +10,7 @@ class CLI {
 private:
 
 	vector<Command> coms;
-	DefaultIO dio;
+	DefaultIO *dio;
 
 public:
 	
