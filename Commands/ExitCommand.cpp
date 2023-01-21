@@ -5,9 +5,12 @@ using namespace std;
 
 
 
-ExitCommand::ExitCommand() {
-    Command::m_description = "exit";
+ExitCommand::ExitCommand(DefaultIO* io): Command("exit",io) {
 }
 
-void ExitCommand::execute() {}
+void ExitCommand::execute() {
+    //need to check if work
+    m_dio->~DefaultIO();
+    return;
+}
     

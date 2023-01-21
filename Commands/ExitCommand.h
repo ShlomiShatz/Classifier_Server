@@ -11,7 +11,7 @@ class ExitCommand : public Command {
 
 public:
 	
-    ExitCommand();
+    ExitCommand(DefaultIO* io);
 	void execute();
     
 };
