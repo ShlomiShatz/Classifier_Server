@@ -6,7 +6,9 @@ using namespace std;
 
 
 
-DownloadResultsCommand::DownloadResultsCommand(DefaultIO* io) : Command("download results",io){
+DownloadResultsCommand::DownloadResultsCommand(DefaultIO* io) {
+    Command::m_description = "download results";
+    Command::m_dio = io;
     dataAlreadyUpload = false;
     dataSorted = false;
 }
@@ -37,5 +39,9 @@ string DownloadResultsCommand::getResultInFormat(){
 }
 void DownloadResultsCommand::setTestVector(vector<Database> newResult){
     result = newResult;
+}
+
+string DownloadResultsCommand::getDescription() {
+    return Command::m_description;
 }
     

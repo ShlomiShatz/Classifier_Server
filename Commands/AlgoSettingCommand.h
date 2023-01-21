@@ -18,9 +18,11 @@ private:
     void updateValue(string input);
     
 public:
+
     AlgoSettingCommand(DefaultIO* io);	
 	void execute();
     void setMaxK(int MaxiK);
+    string getDescription();
 };
 
 #endif

@@ -13,7 +13,7 @@ public:
 	
     ExitCommand(DefaultIO* io);
 	void execute();
-    
+    string getDescription();
 };
 
 #endif

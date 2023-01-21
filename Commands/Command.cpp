@@ -4,10 +4,7 @@
 
 using namespace std;
 
-Command::Command(string desc, DefaultIO *defio){
-    m_description = desc;
-    m_dio = defio;
-}
+Command::Command(string desc, DefaultIO *defio) : m_description(desc), m_dio(defio) {}
 string Command::getDescription() { 
     return m_description;
 }

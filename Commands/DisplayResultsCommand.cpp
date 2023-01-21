@@ -6,7 +6,9 @@ using namespace std;
 
 
 
-DisplayResultsCommand::DisplayResultsCommand(DefaultIO* io) : Command("display results",io) {
+DisplayResultsCommand::DisplayResultsCommand(DefaultIO* io) {
+    Command::m_description = "display results";
+    Command::m_dio = io;
     dataAlreadyUpload = false;
     dataSorted = false;
 }
@@ -37,4 +39,8 @@ void DisplayResultsCommand::execute(){
 }
 void DisplayResultsCommand::setTestVector(vector<Database> newResult){
     result = newResult;
+}
+
+string DisplayResultsCommand::getDescription() {
+    return Command::m_description;
 }

@@ -18,6 +18,7 @@ private:
     
 public:
 	
+    string getDescription();
     UploadUnclassCommand(DefaultIO* io);
     vector<Database> createDatabase(string input);
 	void execute();

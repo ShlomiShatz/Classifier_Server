@@ -8,10 +8,10 @@ using namespace std;
 
 class DistanceMetrixDict{
     private:
-        static map<string, Distance> typeDistance;
+        static map<string, Distance*> m_typeDistance;
         DistanceMetrixDict();
     public:
-        static map<string, Distance> getInstance();
+        static map<string, Distance*> getInstance();
 };
 
 #endif

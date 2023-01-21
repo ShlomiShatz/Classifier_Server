@@ -14,12 +14,11 @@ protected:
     DefaultIO* m_dio;
 
 public:
-	Command(string desc, DefaultIO* defio);
-	virtual void execute();
 
-    string getDescription();
+	virtual void execute() = 0;
+
+    virtual string getDescription() = 0;
     
-    ~Command() {}
     
 };
 

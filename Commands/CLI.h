@@ -9,7 +9,7 @@ using namespace std;
 class CLI {
 private:
 
-	vector<Command> m_coms;
+	vector<Command*> m_coms;
 	DefaultIO *m_dio;
 
 public:

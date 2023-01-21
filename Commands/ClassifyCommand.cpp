@@ -9,12 +9,14 @@ using namespace std;
 
 
 
-ClassifyCommand::ClassifyCommand(DefaultIO* io) : Command("classify data",io) {
+ClassifyCommand::ClassifyCommand(DefaultIO* io) {
+    Command::m_description = "classify data";
+    Command::m_dio = io;
 }
 void ClassifyCommand::calcDistance(vector<double> vect){
-    map<string, Distance> typeDistance = DistanceMetrixDict::getInstance();
+    map<string, Distance*> typeDistance = DistanceMetrixDict::getInstance();
     for (Database& elem : classify) {
-        elem.setDistRes(typeDistance[distanceMetrix].getDistance(elem.getSpecs(), vect));
+        elem.setDistRes(typeDistance[distanceMetrix]->getDistance(elem.getSpecs(), vect));
     }
 }
 string ClassifyCommand::getType(){
@@ -81,4 +83,7 @@ vector<Database> ClassifyCommand::getClassifyVector(){
 vector<Database> ClassifyCommand::ClassifyCommand::getTestVector(){
     return test;
 }
-    
+
+string ClassifyCommand::getDescription() {
+    return Command::m_description;
+}

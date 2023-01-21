@@ -19,6 +19,7 @@ public:
     DisplayResultsCommand(DefaultIO* io);
 	void execute();
     void setTestVector(vector<Database> newResult);
+    string getDescription();
 };
 
 #endif

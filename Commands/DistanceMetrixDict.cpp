@@ -7,18 +7,23 @@
 #include "../Distances/TaxicabGeometry.h"
 #include "DistanceMetrixDict.h"
 
-map<string, Distance> DistanceMetrixDict::getInstance(){
-    if (typeDistance.empty()){
+map<string, Distance*> DistanceMetrixDict::getInstance(){
+    if (m_typeDistance.empty()){
         DistanceMetrixDict();
     }
-    return typeDistance;
+    return m_typeDistance;
 }
 
 
 DistanceMetrixDict::DistanceMetrixDict(){
-    typeDistance["AUC"] = EuclideanDistance();
-    typeDistance["MAN"] = TaxicabGeometry();
-    typeDistance["CHB"] = ChebyshevDistance();
-    typeDistance["CAN"] = CanberraDistance();
-    typeDistance["MIN"] = MinkowskiDistance();
+    EuclideanDistance euc;
+    m_typeDistance["AUC"] = &euc;
+    TaxicabGeometry tax;
+    m_typeDistance["MAN"] = &tax;
+    ChebyshevDistance cheby;
+    m_typeDistance["CHB"] = &cheby;
+    CanberraDistance cancan;
+    m_typeDistance["CAN"] = &cancan;
+    MinkowskiDistance minko;
+    m_typeDistance["MIN"] = &minko;
 }

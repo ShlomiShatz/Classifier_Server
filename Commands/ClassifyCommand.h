@@ -30,6 +30,8 @@ public:
     string getDistanceMetrix();
     vector<Database> getClassifyVector();
     vector<Database> getTestVector();
+
+    string getDescription();
 };
 
 #endif

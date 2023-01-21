@@ -7,7 +7,9 @@
 
 using namespace std;
 
-AlgoSettingCommand::AlgoSettingCommand(DefaultIO* io) : Command("algorithm settings", io){
+AlgoSettingCommand::AlgoSettingCommand(DefaultIO* io) {
+    Command::m_description = "algorithm settings";
+    Command::m_dio = io;
     k = 5;
     distanceMetric = "AUC";
     MaxK = -1;
@@ -34,7 +36,7 @@ void AlgoSettingCommand::updateValue(string input){
     }
     string subString = input.substr(0,found);
     input = input.substr(found + 1);
-    map<string, Distance> typeDistance = DistanceMetrixDict::getInstance();
+    map<string, Distance*> typeDistance = DistanceMetrixDict::getInstance();
     if (typeDistance.count(input) <= 0){
         m_dio->write("invalid value for metric");
     }
@@ -61,5 +63,9 @@ void AlgoSettingCommand::execute() {
     m_dio->write(getInfo());
     string data = m_dio->read();
     updateValue(data);
+}
+
+string AlgoSettingCommand::getDescription() {
+    return Command::m_description;
 }
     
