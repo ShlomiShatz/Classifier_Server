@@ -66,6 +66,6 @@ void AlgoSettingCommand::execute() {
 }
 
 string AlgoSettingCommand::getDescription() {
-    return Command::m_description;
+    return m_description;
 }
     

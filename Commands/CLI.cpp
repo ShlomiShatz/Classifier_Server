@@ -9,22 +9,18 @@
 #include "DownloadResultsCommand.h"
 #include "ExitCommand.h"
 
+#include <iostream> //*********************************************************
+
 using namespace std;
 
 
 CLI::CLI(DefaultIO* dio) : m_dio(dio) {
-    UploadUnclassCommand upload(dio);
-    m_coms.push_back(&upload);
-    AlgoSettingCommand algo(dio);
-    m_coms.push_back(&algo);
-    ClassifyCommand clas(dio);
-    m_coms.push_back(&clas);
-    DisplayResultsCommand display(dio);
-    m_coms.push_back(&display);
-    DownloadResultsCommand downl(dio);
-    m_coms.push_back(&downl);
-    ExitCommand exitco(dio);
-    m_coms.push_back(&exitco);
+    m_coms.push_back(new UploadUnclassCommand(dio));
+    m_coms.push_back(new AlgoSettingCommand(dio));
+    m_coms.push_back(new ClassifyCommand(dio));
+    m_coms.push_back(new DisplayResultsCommand(dio));
+    m_coms.push_back(new DownloadResultsCommand(dio));
+    m_coms.push_back(new ExitCommand(dio));
 }
 
 string CLI::printMenu() {
@@ -46,22 +42,20 @@ void CLI::start() {
         string option = m_dio->read();
         if (option == "1") {
             m_coms[0]->execute();
-            continue;
         } else if (option == "2") {
             m_coms[1]->execute();
-            continue;
         } else if (option == "3") {
             m_coms[2]->execute();
-            continue;
         } else if (option == "4") {
             m_coms[3]->execute();
-            continue;
         } else if (option == "5") {
             m_coms[4]->execute();
-            continue;
         } else if (option == "8") {
             m_coms[5]->execute();
             break;
+        } else {
+            m_dio->write("invalid input");
+            continue;
         }
     }
 

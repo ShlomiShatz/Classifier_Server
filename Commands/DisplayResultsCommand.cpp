@@ -42,5 +42,5 @@ void DisplayResultsCommand::setTestVector(vector<Database> newResult){
 }
 
 string DisplayResultsCommand::getDescription() {
-    return Command::m_description;
+    return m_description;
 }

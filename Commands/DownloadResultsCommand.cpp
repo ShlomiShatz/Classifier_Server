@@ -42,6 +42,6 @@ void DownloadResultsCommand::setTestVector(vector<Database> newResult){
 }
 
 string DownloadResultsCommand::getDescription() {
-    return Command::m_description;
+    return m_description;
 }
     

@@ -18,15 +18,10 @@ map<string, Distance*> DistanceMetrixDict::getInstance(){
 
 
 DistanceMetrixDict::DistanceMetrixDict(){
-    EuclideanDistance euc;
-    m_typeDistance["AUC"] = &euc;
-    TaxicabGeometry tax;
-    m_typeDistance["MAN"] = &tax;
-    ChebyshevDistance cheby;
-    m_typeDistance["CHB"] = &cheby;
-    CanberraDistance cancan;
-    m_typeDistance["CAN"] = &cancan;
-    MinkowskiDistance minko;
-    m_typeDistance["MIN"] = &minko;
+    m_typeDistance["AUC"] = new EuclideanDistance();
+    m_typeDistance["MAN"] = new TaxicabGeometry();
+    m_typeDistance["CHB"] = new ChebyshevDistance();
+    m_typeDistance["CAN"] = new CanberraDistance();
+    m_typeDistance["MIN"] = new MinkowskiDistance();
     
 }

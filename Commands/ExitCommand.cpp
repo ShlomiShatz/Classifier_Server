@@ -17,6 +17,6 @@ void ExitCommand::execute() {
 }
 
 string ExitCommand::getDescription() {
-    return Command::m_description;
+    return m_description;
 }
     

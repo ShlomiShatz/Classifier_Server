@@ -4,6 +4,8 @@
 #include "../Server/VectorCheck.h"
 #include "Command.h"
 
+#include <iostream>//*******************************************************************************
+
 using namespace std;
 
 UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io) {
@@ -70,7 +72,7 @@ void UploadUnclassCommand::execute() {
 }
 
 string UploadUnclassCommand::getDescription() {
-    return Command::m_description;
+    return m_description;
 }
 
     

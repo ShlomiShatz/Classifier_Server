@@ -85,5 +85,5 @@ vector<Database> ClassifyCommand::ClassifyCommand::getTestVector(){
 }
 
 string ClassifyCommand::getDescription() {
-    return Command::m_description;
+    return m_description;
 }
