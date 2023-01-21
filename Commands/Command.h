@@ -15,7 +15,7 @@ protected:
 
 public:
 	Command(string desc, DefaultIO* defio);
-	virtual void execute() = 0;
+	virtual void execute();
 
     string getDescription();
     
