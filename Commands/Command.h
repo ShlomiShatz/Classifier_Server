@@ -11,13 +11,13 @@ class Command {
 protected:
 
     string m_description;
-    DefaultIO *m_dio;
+    DefaultIO* m_dio;
 
 public:
-	
-	virtual void execute();
+	Command(string desc, DefaultIO* defio);
+	virtual void execute() = 0;
 
-    string getDescription() { return m_description; }
+    string getDescription();
     
     ~Command() {}
     

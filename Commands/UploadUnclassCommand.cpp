@@ -2,12 +2,11 @@
 #include <sstream>
 #include "UploadUnclassCommand.h"
 #include "../Server/VectorCheck.h"
+#include "Command.h"
 
 using namespace std;
 
-UploadUnclassCommand::UploadUnclassCommand() {
-    Command::m_description = "upload an unclassified csv data file";
-}
+UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io) : Command("upload an unclassified csv data file", io) {}
 
 //check if the end char is \n
 vector<Database> UploadUnclassCommand::createDatabase(string input){

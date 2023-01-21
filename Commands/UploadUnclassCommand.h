@@ -18,7 +18,7 @@ private:
     
 public:
 	
-    UploadUnclassCommand();
+    UploadUnclassCommand(DefaultIO* io);
     vector<Database> createDatabase(string input);
 	void execute();
     

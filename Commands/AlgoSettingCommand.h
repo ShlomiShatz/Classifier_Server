@@ -13,10 +13,14 @@ private:
 
     int k;
     string distanceMetric;
+    int MaxK;
+    string getInfo();
+    void updateValue(string input);
     
 public:
-    AlgoSettingCommand();	
+    AlgoSettingCommand(DefaultIO* io);	
 	void execute();
+    void setMaxK(int MaxiK);
 };
 
 #endif

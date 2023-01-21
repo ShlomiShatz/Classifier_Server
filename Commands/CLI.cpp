@@ -13,12 +13,12 @@ using namespace std;
 
 
 CLI::CLI(DefaultIO* dio) : m_dio(dio) {
-    m_coms.push_back(UploadUnclassCommand());
-    m_coms.push_back(AlgoSettingCommand());
-    m_coms.push_back(ClassifyCommand());
-    m_coms.push_back(DisplayResultsCommand());
-    m_coms.push_back(DownloadResultsCommand());
-    m_coms.push_back(ExitCommand());
+    m_coms.push_back(UploadUnclassCommand(dio));
+    m_coms.push_back(AlgoSettingCommand(dio));
+    m_coms.push_back(ClassifyCommand(dio));
+    m_coms.push_back(DisplayResultsCommand(dio));
+    m_coms.push_back(DownloadResultsCommand(dio));
+    m_coms.push_back(ExitCommand(dio));
 }
 
 string CLI::printMenu() {
