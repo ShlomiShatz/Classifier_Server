@@ -12,6 +12,16 @@ UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io) {
     Command::m_dio = io;
 }
 
+vector<string> UploadUnclassCommand::toVectorString(string s) {
+    vector<string> vect;
+    string temp;
+    stringstream SStr(s);
+    while (getline(SStr, temp, ',')) {
+        vect.push_back(temp);
+    }
+    return vect;
+}
+
 //check if the end char is \n
 vector<Database> UploadUnclassCommand::createDatabase(string input){
     vector<string> row;
@@ -19,30 +29,23 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     string line, word, temp;
     bool didPassFirst = false;
     int rowSize = 0;
-    int found = input.find("\n");
-    if (found == string::npos){
-        throw 0;
-    }
-    string subString = input.substr(0,found);
-    input = input.substr(found + 1);
-    //need to change the funcion to comma
-    row = VectorCheck::stringToVectorString(subString);
+    stringstream SStr(input);
+    getline(SStr, temp, '\n');
+    row = UploadUnclassCommand::toVectorString(temp);
     int size = row.size();
     Database db(row);
     vect.push_back(db);
-    if (subString.length() != 0){
-        row.push_back(subString);
+    if (temp.length() != 0) {
+        row.push_back(temp);
     } else {
         throw 0;
     }
-    while (found != string::npos) {
+    while (getline(SStr, temp, '\n')) {
         row.clear();
-        string subString = input.substr(0,found);
-        row = VectorCheck::stringToVectorString(subString);
+        row = UploadUnclassCommand::toVectorString(temp);
         if (size != row.size()){
             throw 0;
         }
-        input = input.substr(found + 1);
         Database db(row);
         vect.push_back(db);
     }
@@ -51,7 +54,6 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
 void UploadUnclassCommand::execute() {
     Command::m_dio->write("Please upload your local train CSV file.");
     string data = Command::m_dio->read();
-    cout << data << endl;
     try{
         vectorClassify = UploadUnclassCommand::createDatabase(data);
     } catch(int e){
@@ -63,7 +65,7 @@ void UploadUnclassCommand::execute() {
     data = Command::m_dio->read();
     try{
         vectorUnClassify = UploadUnclassCommand::createDatabase(data);
-    }catch(int e){
+    } catch(int e){
         Command::m_dio->write("invalid input");
         vectorClassify.clear();
         return;

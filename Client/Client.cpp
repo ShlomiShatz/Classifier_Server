@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
         //Takes the full message from the server
         string fullMsg = sockio.read();
         standio.write(fullMsg);
-        if(fullMsg == "Please upload your local CSV file." || fullMsg == "Please upload your local test CSV file.") {
+        if(fullMsg == "Please upload your local train CSV file." || fullMsg == "Please upload your local test CSV file.") {
             string input = standio.read();
             string fileToSend;
             try {
@@ -85,7 +85,9 @@ int main(int argc, char** argv) {
                 cout << "failed to send file" << endl;
                 continue;
             }
-
+            fullMsg = sockio.read();
+            standio.write(fullMsg);
+            continue;
         }
         string input = standio.read();
         try {

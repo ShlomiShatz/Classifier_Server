@@ -25,6 +25,7 @@ public:
     int getMaxK();
     vector<Database> getClassifyVect();
     vector<Database> getUnClassifyVect();
+    vector<string> toVectorString(string s);
 };
 
 #endif
