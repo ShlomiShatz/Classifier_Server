@@ -7,6 +7,8 @@
 #include "../Distances/TaxicabGeometry.h"
 #include "DistanceMetrixDict.h"
 
+map<string, Distance*> DistanceMetrixDict::m_typeDistance;
+
 map<string, Distance*> DistanceMetrixDict::getInstance(){
     if (m_typeDistance.empty()){
         DistanceMetrixDict();
@@ -26,4 +28,5 @@ DistanceMetrixDict::DistanceMetrixDict(){
     m_typeDistance["CAN"] = &cancan;
     MinkowskiDistance minko;
     m_typeDistance["MIN"] = &minko;
+    
 }
