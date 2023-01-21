@@ -68,4 +68,10 @@ void AlgoSettingCommand::execute() {
 string AlgoSettingCommand::getDescription() {
     return m_description;
 }
-    
+int AlgoSettingCommand::getK(){
+    return k;
+}
+
+string AlgoSettingCommand::getDistanceMetric(){
+    return distanceMetric;
+} 

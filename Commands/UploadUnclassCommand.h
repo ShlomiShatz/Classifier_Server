@@ -22,7 +22,9 @@ public:
     UploadUnclassCommand(DefaultIO* io);
     vector<Database> createDatabase(string input);
 	void execute();
-    
+    int getMaxK();
+    vector<Database> getClassifyVect();
+    vector<Database> getUnClassifyVect();
 };
 
 #endif

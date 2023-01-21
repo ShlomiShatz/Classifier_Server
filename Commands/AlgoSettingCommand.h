@@ -23,6 +23,8 @@ public:
 	void execute();
     void setMaxK(int MaxiK);
     string getDescription();
+    int getK();
+    string getDistanceMetric();
 };
 
 #endif

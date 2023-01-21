@@ -3,8 +3,7 @@
 #include "UploadUnclassCommand.h"
 #include "../Server/VectorCheck.h"
 #include "Command.h"
-
-#include <iostream>//*******************************************************************************
+#include <iostream>
 
 using namespace std;
 
@@ -52,6 +51,7 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
 void UploadUnclassCommand::execute() {
     Command::m_dio->write("Please upload your local train CSV file.");
     string data = Command::m_dio->read();
+    cout << data << endl;
     try{
         vectorClassify = UploadUnclassCommand::createDatabase(data);
     } catch(int e){
@@ -73,6 +73,16 @@ void UploadUnclassCommand::execute() {
 
 string UploadUnclassCommand::getDescription() {
     return m_description;
+}
+
+int UploadUnclassCommand::getMaxK(){
+    return vectorClassify.size();
+}
+vector<Database> UploadUnclassCommand::getClassifyVect(){
+    return vectorClassify;
+}
+vector<Database> UploadUnclassCommand::getUnClassifyVect(){
+    return vectorUnClassify;
 }
 
     

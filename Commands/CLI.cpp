@@ -9,8 +9,6 @@
 #include "DownloadResultsCommand.h"
 #include "ExitCommand.h"
 
-#include <iostream> //*********************************************************
-
 using namespace std;
 
 
@@ -42,10 +40,18 @@ void CLI::start() {
         string option = m_dio->read();
         if (option == "1") {
             m_coms[0]->execute();
+            int maxK = (((UploadUnclassCommand*) m_coms[0]) ->getMaxK());
+            ((AlgoSettingCommand*)m_coms[1]) -> setMaxK(maxK);
+            ((ClassifyCommand*)m_coms[2]) -> setClassifyVector(((UploadUnclassCommand*) m_coms[0]) ->getClassifyVect());
+            ((ClassifyCommand*)m_coms[2]) -> setTestVector(((UploadUnclassCommand*) m_coms[0]) ->getUnClassifyVect());
         } else if (option == "2") {
             m_coms[1]->execute();
+            ((ClassifyCommand*)m_coms[2]) -> setK(((AlgoSettingCommand*)m_coms[1])->getK());
+            ((ClassifyCommand*)m_coms[2]) -> setDistanceMetrix(((AlgoSettingCommand*)m_coms[1])->getDistanceMetric());
         } else if (option == "3") {
             m_coms[2]->execute();
+            ((DisplayResultsCommand*)m_coms[3]) -> setTestVector(((ClassifyCommand*)m_coms[2])->getTestVector());
+            ((DownloadResultsCommand*)m_coms[4]) -> setTestVector(((ClassifyCommand*)m_coms[2])->getTestVector());
         } else if (option == "4") {
             m_coms[3]->execute();
         } else if (option == "5") {
