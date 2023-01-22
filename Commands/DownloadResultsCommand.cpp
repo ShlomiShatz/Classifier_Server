@@ -5,14 +5,10 @@
 
 using namespace std;
 
-
-
 DownloadResultsCommand::DownloadResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "download results";
     Command::m_dio = io;
     Command::m_currentData = cd;
-    // dataAlreadyUpload = false;
-    // dataSorted = false;
 }
 
 void DownloadResultsCommand::execute() {
@@ -38,17 +34,7 @@ string DownloadResultsCommand::getResultInFormat(){
     }
     return format;
 }
-// void DownloadResultsCommand::setTestVector(vector<Database> newResult){
-//     result = newResult;
-// }
 
 string DownloadResultsCommand::getDescription() {
     return m_description;
-}
-// void DownloadResultsCommand::setDataAlreadyUpload(bool change){
-//     dataAlreadyUpload = change;
-// }
-// void DownloadResultsCommand::setDataSorted(bool change){
-//     dataSorted = change;
-// }
-    
+}   

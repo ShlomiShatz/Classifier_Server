@@ -6,8 +6,6 @@
 #include "Command.h"
 #include "CLI.h"
 
-#include <iostream>//***************************************************************************
-
 using namespace std;
 
 UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io, CommandData* cd) {
@@ -86,12 +84,3 @@ void UploadUnclassCommand::execute() {
 string UploadUnclassCommand::getDescription() {
     return m_description;
 }
-
-// vector<Database> UploadUnclassCommand::getClassifyVect(){
-//     return vectorClassify;
-// }
-// vector<Database> UploadUnclassCommand::getUnClassifyVect(){
-//     return vectorUnClassify;
-// }
-
-    

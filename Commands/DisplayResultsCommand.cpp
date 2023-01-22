@@ -11,8 +11,6 @@ DisplayResultsCommand::DisplayResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "display results";
     Command::m_dio = io;
     Command::m_currentData = cd;
-    // dataAlreadyUpload = false;
-    // dataSorted = false;
 }
 string DisplayResultsCommand::getResultInFormat(){
     int size = Command::m_currentData->getUnClassifyVect().size();
@@ -39,15 +37,7 @@ void DisplayResultsCommand::execute(){
     Command::m_dio->write(getResultInFormat());
     Command::m_dio->read();
 }
-// void DisplayResultsCommand::setTestVector(vector<Database> newResult){
-//     result = newResult;
-// }
+
 string DisplayResultsCommand::getDescription() {
     return m_description;
 }
-// void DisplayResultsCommand::setDataAlreadyUpload(bool change){
-//     dataAlreadyUpload = change;
-// }
-// void DisplayResultsCommand::setDataSorted(bool change){
-//     dataSorted = change;
-// }

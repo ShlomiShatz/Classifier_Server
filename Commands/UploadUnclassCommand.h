@@ -9,12 +9,6 @@
 using namespace std;
 
 class UploadUnclassCommand : public Command {
-
-// private:
-
-//     vector<Database> vectorClassify;
-//     vector<Database> vectorUnClassify;
-
     
 public:
 	
@@ -22,8 +16,6 @@ public:
     UploadUnclassCommand(DefaultIO* io, CommandData* cd);
     vector<Database> createDatabase(string input);
 	void execute();
-    // vector<Database> getClassifyVect();
-    // vector<Database> getUnClassifyVect();
     vector<string> toVectorString(string s);
 };
 

@@ -19,9 +19,6 @@ public:
     AlgoSettingCommand(DefaultIO* io, CommandData* cd);	
 	void execute();
     string getDescription();
-    // void setMaxK(int MaxiK);
-    // int getK();
-    // string getDistanceMetric();
 };
 
 #endif

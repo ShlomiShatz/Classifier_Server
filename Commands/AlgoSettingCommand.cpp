@@ -21,9 +21,7 @@ string AlgoSettingCommand::getInfo(){
     info = info + Command::m_currentData->getMatric();
     return info;
 }
-// void AlgoSettingCommand::setMaxK(int MaxiK) {
-//     MaxK = MaxiK;
-// }
+
 void AlgoSettingCommand::updateValue(string input){
     int potentialK = 0;
     string newMetric;
@@ -53,16 +51,6 @@ void AlgoSettingCommand::updateValue(string input){
         }
         return;
     }
-    // string potentialStringK = to_string(potentialK);
-    // if (potentialStringK != subString){
-    //     if (msg == ""){
-    //         msg = "invalid value for K";
-    //     }else{
-    //         msg = msg + "\ninvalid value for K";
-    //     }
-    //     Command::m_dio->write(msg);
-    //     return;
-    // }
     if (potentialK > Command::m_currentData->getMaxK()) {
         if (msg.empty()) {
             msg = "invalid value for K";
@@ -91,10 +79,3 @@ void AlgoSettingCommand::execute() {
 string AlgoSettingCommand::getDescription() {
     return m_description;
 }
-// int AlgoSettingCommand::getK(){
-//     return k;
-// }
-
-// string AlgoSettingCommand::getDistanceMetric(){
-//     return distanceMetric;
-// } 
