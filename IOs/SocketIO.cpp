@@ -37,11 +37,11 @@ string SocketIO::read() {
         fullMsg.append(partMsg);
         finish = fullMsg.find("\r\n\r\n");
     } while(finish == string::npos);
-    cout << "-" << fullMsg << "-" << endl;//***********************************************************************
     if (finish == string::npos) {
         return "error reading message";
     }
     fixedMsg = fullMsg.substr(0, finish);
+    cout << "-" << fixedMsg << "-" << endl;//***********************************************************************
     fullMsg = fullMsg.substr(finish + 4);
     finish = fullMsg.find("\r\n\r\n");
     while (finish != string::npos && !fullMsg.empty()) {

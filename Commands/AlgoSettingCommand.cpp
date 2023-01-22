@@ -67,7 +67,7 @@ void AlgoSettingCommand::updateValue(string input){
     }
     Command::m_currentData->setCurrentK(potentialK);
     Command::m_currentData->setMatric(input);
-    // Command::m_dio->write("ok");//********************************************************************************88
+    Command::m_dio->write("~~~");//********************************************************************************88
 }
 
 void AlgoSettingCommand::execute() {

@@ -66,8 +66,16 @@ int main(int argc, char** argv) {
     while (true) {
         //Takes the full message from the server
         string fullMsg = sockio.read();
+        int finish = fullMsg.find("~~~");
+        if (finish != string::npos) {
+            string partMsg = fullMsg.substr(0, finish);
+            if (!partMsg.empty() ) {
+                standio.write(partMsg);
+                continue;
+            }
+        }
         standio.write(fullMsg);
-        if(fullMsg == "Please upload your local train CSV file." || fullMsg == "Please upload your local test CSV file.") {
+        if(fullMsg.find("Please upload your local train CSV file.") != string::npos || fullMsg.find("Please upload your local test CSV file.") != string::npos) {
             string input = standio.read();
             string fileToSend;
             try {
@@ -97,7 +105,7 @@ int main(int argc, char** argv) {
         }
         if(input == "5") {
             string fileInput = sockio.read();
-            if (fileInput != "please upload data" && fileInput != "please classify the data") {
+            if (fileInput.find("please upload data") == sting::npos && fileInput.find("please classify the data") == string::npos) {
                 string path = standio.read();
                 ofstream file(path);
                 file << fileInput;
