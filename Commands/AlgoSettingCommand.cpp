@@ -27,6 +27,7 @@ void AlgoSettingCommand::setMaxK(int MaxiK) {
 void AlgoSettingCommand::updateValue(string input){
     int potentialK = 0;
     string newMetric;
+    string msg = "";
     if (input == "") {
         return;
     }
@@ -38,25 +39,46 @@ void AlgoSettingCommand::updateValue(string input){
     input = input.substr(found + 1);
     map<string, Distance*> typeDistance = DistanceMetrixDict::getInstance();
     if (typeDistance.count(input) <= 0){
-        m_dio->write("invalid value for metric");
+        msg = msg + "invalid value for metric";
     }
     try{
         potentialK = stoi(subString);
     }catch(exception e){
-        m_dio->write("invalid value for K");
+        if (msg == ""){
+            msg = "invalid value for K";
+        }else{
+            msg = msg + "\ninvalid value for K";
+        }
+        m_dio->write(msg);
         return;
     }
     string potentialStringK = to_string(potentialK);
     if (potentialStringK != subString){
-        m_dio->write("invalid value for K");
+        if (msg == ""){
+            msg = "invalid value for K";
+        }else{
+            msg = msg + "\ninvalid value for K";
+        }
+        m_dio->write(msg);
         return;
     }
     if (potentialK > MaxK || potentialK < 1){
-        m_dio->write("invalid value for K");
+        if (msg == ""){
+            msg = "invalid value for K";
+        }else{
+            msg = msg + "\ninvalid value for K";
+        }
+        m_dio->write(msg);
         return;
     }
+    if (msg != "")
+    {
+        m_dio->write(msg);
+    }
+    
     k = potentialK;
     distanceMetric = input;
+    m_dio->write("ok");
 }
 
 void AlgoSettingCommand::execute() {

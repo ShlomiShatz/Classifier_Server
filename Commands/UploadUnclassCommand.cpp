@@ -60,8 +60,8 @@ void UploadUnclassCommand::execute() {
         Command::m_dio->write("invalid input");
         return;
     }
-    Command::m_dio->write("Upload complete.");
-    Command::m_dio->write("Please upload your local test CSV file.");
+    Command::m_dio->write("Upload complete.\nPlease upload your local test CSV file.");
+    //Command::m_dio->write("Please upload your local test CSV file.");
     data = Command::m_dio->read();
     try{
         vectorUnClassify = UploadUnclassCommand::createDatabase(data);
