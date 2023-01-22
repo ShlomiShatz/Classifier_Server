@@ -40,7 +40,12 @@ void DisplayResultsCommand::execute(){
 void DisplayResultsCommand::setTestVector(vector<Database> newResult){
     result = newResult;
 }
-
 string DisplayResultsCommand::getDescription() {
     return m_description;
+}
+void DisplayResultsCommand::setDataAlreadyUpload(bool change){
+    dataAlreadyUpload = change;
+}
+void DisplayResultsCommand::setDataSorted(bool change){
+    dataSorted = change;
 }

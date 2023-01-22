@@ -44,4 +44,10 @@ void DownloadResultsCommand::setTestVector(vector<Database> newResult){
 string DownloadResultsCommand::getDescription() {
     return m_description;
 }
+void DownloadResultsCommand::setDataAlreadyUpload(bool change){
+    dataAlreadyUpload = change;
+}
+void DownloadResultsCommand::setDataSorted(bool change){
+    dataSorted = change;
+}
     
