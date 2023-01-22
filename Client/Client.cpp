@@ -74,19 +74,18 @@ int main(int argc, char** argv) {
                 OpenFile classifyFile(input);
                 fileToSend = classifyFile.ClientFile();
             } catch (int exc) {
-                //If an exception was thrown, sends an error and closes the program
-                cout << "invalid input" << endl;
+                standio.write("invalid input");
                 sockio.write("-1");
                 continue;
             }
             try {
                 sockio.write(fileToSend);
             } catch (exception &err) {
-                cout << "failed to send file" << endl;
+                standio.write("failed to send file");
                 continue;
             }
-            fullMsg = sockio.read();
-            standio.write(fullMsg);
+            string errorMsg = sockio.read();
+            standio.write(errorMsg);
             continue;
         }
         string input = standio.read();

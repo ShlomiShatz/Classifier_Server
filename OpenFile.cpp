@@ -13,8 +13,10 @@ using namespace std;
 */
 OpenFile::OpenFile(string name): fileName(name) {}
 
+
 string OpenFile::ClientFile() {
     ifstream f(fileName);
+    if (!f.is_open()) throw 0;
     stringstream buffer;
     buffer << f.rdbuf();
     if (f.is_open()) f.close();

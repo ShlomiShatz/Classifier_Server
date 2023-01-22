@@ -20,7 +20,8 @@ public:
 	void execute();
     void setTestVector(vector<Database> newResult);
     string getDescription();
-    
+    void setDataAlreadyUpload(bool change);
+    void setDataSorted(bool change);
 };
 
 #endif

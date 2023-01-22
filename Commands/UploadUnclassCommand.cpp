@@ -4,6 +4,7 @@
 #include "../Server/VectorCheck.h"
 #include "Command.h"
 #include <iostream>
+#include "CLI.h"
 
 using namespace std;
 
@@ -54,13 +55,17 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
 void UploadUnclassCommand::execute() {
     Command::m_dio->write("Please upload your local train CSV file.");
     string data = Command::m_dio->read();
+    if (data == "-1") {
+        return;
+    }
     try{
         vectorClassify = UploadUnclassCommand::createDatabase(data);
     } catch(int e){
         Command::m_dio->write("invalid input");
         return;
     }
-    Command::m_dio->write("Upload complete.\nPlease upload your local test CSV file.");
+    Command::m_dio->write("Upload complete.");
+    Command::m_dio->write("Please upload your local test CSV file.");
     //Command::m_dio->write("Please upload your local test CSV file.");
     data = Command::m_dio->read();
     try{
