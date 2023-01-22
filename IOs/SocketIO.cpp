@@ -51,16 +51,6 @@ string SocketIO::read() {
         fullMsg = fullMsg.substr(finish + 4);
         finish = fullMsg.find("\r\n\r\n");
     }
-    //Fixes the message and prints it
-    // string fixedMsg = fullMsg.substr(0, finish);
-    // fullMsg = fullMsg.substr(finish + 3);
-    // if (!fullMsg.empty()) {
-    //     finish = fullMsg.find("\r\n\r\n");
-    // }
-    // if (finish != string::npos) {
-    //     fixedMsg.append("\n");
-    //     fixedMsg.append(fullMsg.substr(0, finish));
-    // }
     return fixedMsg;
 }
 
