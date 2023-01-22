@@ -1,16 +1,19 @@
 #include <string>
 #include <sstream>
 #include "UploadUnclassCommand.h"
+#include "CommandData.h"
 #include "../Server/VectorCheck.h"
 #include "Command.h"
-#include <iostream>
 #include "CLI.h"
+
+#include <iostream>//***************************************************************************
 
 using namespace std;
 
-UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io) {
+UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "upload an unclassified csv data file";
     Command::m_dio = io;
+    Command::m_currentData = cd;
 }
 
 vector<string> UploadUnclassCommand::toVectorString(string s) {
@@ -58,23 +61,25 @@ void UploadUnclassCommand::execute() {
     if (data == "-1") {
         return;
     }
-    try{
-        vectorClassify = UploadUnclassCommand::createDatabase(data);
-    } catch(int e){
+    try {
+        Command::m_currentData->setClassifyVect(UploadUnclassCommand::createDatabase(data));
+        Command::m_currentData->setMaxK(Command::m_currentData->getClassifyVect().size());
+    } catch(exception e) {
         Command::m_dio->write("invalid input");
         return;
     }
     Command::m_dio->write("Upload complete.");
     Command::m_dio->write("Please upload your local test CSV file.");
-    //Command::m_dio->write("Please upload your local test CSV file.");
     data = Command::m_dio->read();
-    try{
-        vectorUnClassify = UploadUnclassCommand::createDatabase(data);
-    } catch(int e){
+    try {
+        Command::m_currentData->setUnClassifyVect(UploadUnclassCommand::createDatabase(data));
+    } catch(exception e) {
         Command::m_dio->write("invalid input");
-        vectorClassify.clear();
+        Command::m_currentData->clearClassifyVect();
+        Command::m_currentData->setDataUpload(false);
         return;
     }
+    Command::m_currentData->setDataUpload(true);
     Command::m_dio->write("Upload complete.");
 }
 
@@ -82,14 +87,11 @@ string UploadUnclassCommand::getDescription() {
     return m_description;
 }
 
-int UploadUnclassCommand::getMaxK(){
-    return vectorClassify.size();
-}
-vector<Database> UploadUnclassCommand::getClassifyVect(){
-    return vectorClassify;
-}
-vector<Database> UploadUnclassCommand::getUnClassifyVect(){
-    return vectorUnClassify;
-}
+// vector<Database> UploadUnclassCommand::getClassifyVect(){
+//     return vectorClassify;
+// }
+// vector<Database> UploadUnclassCommand::getUnClassifyVect(){
+//     return vectorUnClassify;
+// }
 
     

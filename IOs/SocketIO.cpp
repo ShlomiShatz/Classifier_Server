@@ -7,6 +7,8 @@
 #include <string>
 #include "SocketIO.h"
 
+#include <iostream>//******************************************************************************
+
 using namespace std;
 
 
@@ -18,28 +20,48 @@ SocketIO::~SocketIO() {
 
 string SocketIO::read() {
     string fullMsg = "";
+    string fixedMsg = "";
     int finish = 0;
     do {
-            //Receives the data from the server
-            char buffer[4096] = {0};
-            int expected_data_len = sizeof(buffer);
-            int read_bytes = recv(sock, buffer, expected_data_len, 0);
-            if (read_bytes == 0) {
-                continue;
-            }
-            else if (read_bytes < 0) {
-                break;
-            }
-            string partMsg(buffer);
-            fullMsg.append(partMsg);
-            finish = fullMsg.find("\r\n\r\n");
-        } while(finish == string::npos);
-        if (finish == string::npos) {
-            return "error reading message";
+        //Receives the data from the server
+        char buffer[4096] = {0};
+        int expected_data_len = sizeof(buffer);
+        int read_bytes = recv(sock, buffer, expected_data_len, 0);
+        if (read_bytes == 0) {
+            continue;
         }
-        //Fixes the message and prints it
-        fullMsg = fullMsg.substr(0, finish);
-        return fullMsg;
+        else if (read_bytes < 0) {
+            break;
+        }
+        string partMsg(buffer);
+        fullMsg.append(partMsg);
+        finish = fullMsg.find("\r\n\r\n");
+    } while(finish == string::npos);
+    cout << "-" << fullMsg << "-" << endl;//***********************************************************************
+    if (finish == string::npos) {
+        return "error reading message";
+    }
+    fixedMsg = fullMsg.substr(0, finish);
+    fullMsg = fullMsg.substr(finish + 4);
+    finish = fullMsg.find("\r\n\r\n");
+    while (finish != string::npos && !fullMsg.empty()) {
+        cout << "~" << fixedMsg << "~" << endl;//***********************************************************************
+        fixedMsg.append("\n");
+        fixedMsg.append(fullMsg.substr(0, finish));
+        fullMsg = fullMsg.substr(finish + 4);
+        finish = fullMsg.find("\r\n\r\n");
+    }
+    //Fixes the message and prints it
+    // string fixedMsg = fullMsg.substr(0, finish);
+    // fullMsg = fullMsg.substr(finish + 3);
+    // if (!fullMsg.empty()) {
+    //     finish = fullMsg.find("\r\n\r\n");
+    // }
+    // if (finish != string::npos) {
+    //     fixedMsg.append("\n");
+    //     fixedMsg.append(fullMsg.substr(0, finish));
+    // }
+    return fixedMsg;
 }
 
 void SocketIO::write(string input) {

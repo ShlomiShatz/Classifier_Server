@@ -1,9 +1,9 @@
 SOURCECLIENT = Client/Client.cpp Client/ClientVectorCheck.cpp IOs/SocketIO.cpp IOs/StandartIO.cpp OpenFile.cpp
 OBJSCLIENT = Client.o ClientVectorCheck.o SocketIO.o StandartIO.o OpenFile.o
 HEADERCLIENT = Client/ClientVectorCheck.h IOs/SocketIO.h IOs/StandartIO.h OpenFile.h
-OBJS	= Server.o Distance.o EuclideanDistance.o TaxicabGeometry.o MinkowskiDistance.o CanberraDistance.o ChebyshevDistance.o VectorCheck.o SelectSort.o Database.o RecieveCheckServer.o OpenFile.o CLI.o SocketIO.o UploadUnclassCommand.o AlgoSettingCommand.o ClassifyCommand.o DisplayResultsCommand.o DownloadResultsCommand.o DistanceMetrixDict.o ExitCommand.o
-SOURCE	= Server/Server.cpp Distances/Distance.cpp Distances/EuclideanDistance.cpp Distances/TaxicabGeometry.cpp Distances/MinkowskiDistance.cpp Distances/CanberraDistance.cpp Distances/ChebyshevDistance.cpp Server/VectorCheck.cpp Server/SelectSort.cpp Server/Database.cpp Server/RecieveCheckServer.cpp OpenFile.cpp IOs/SocketIO.cpp Commands/CLI.cpp Commands/UploadUnclassCommand.cpp Commands/AlgoSettingCommand.cpp Commands/ClassifyCommand.cpp Commands/DisplayResultsCommand.cpp Commands/DownloadResultsCommand.cpp Commands/DistanceMetrixDict.cpp Commands/ExitCommand.cpp
-HEADER	= Distances/Distance.h Distances/EuclideanDistance.h Distances/TaxicabGeometry.h Distances/MinkowskiDistance.h Distances/CanberraDistance.h Distances/ChebyshevDistance.h Server/VectorCheck.h Server/SelectSort.h Server/Database.h Server/RecieveCheckServer.h OpenFile.h IOs/SocketIO.h Commands/CLI.h Commands/UploadUnclassCommand.h Commands/AlgoSettingCommand.h Commands/ClassifyCommand.h Commands/DisplayResultsCommand.h Commands/DownloadResultsCommand.h Commands/DistanceMetrixDict.h Commands/ExitCommand.h
+OBJS	= Server.o Distance.o EuclideanDistance.o TaxicabGeometry.o MinkowskiDistance.o CanberraDistance.o ChebyshevDistance.o VectorCheck.o SelectSort.o Database.o RecieveCheckServer.o OpenFile.o CLI.o SocketIO.o UploadUnclassCommand.o AlgoSettingCommand.o ClassifyCommand.o DisplayResultsCommand.o DownloadResultsCommand.o DistanceMetrixDict.o ExitCommand.o CommandData.o
+SOURCE	= Server/Server.cpp Distances/Distance.cpp Distances/EuclideanDistance.cpp Distances/TaxicabGeometry.cpp Distances/MinkowskiDistance.cpp Distances/CanberraDistance.cpp Distances/ChebyshevDistance.cpp Server/VectorCheck.cpp Server/SelectSort.cpp Server/Database.cpp Server/RecieveCheckServer.cpp OpenFile.cpp IOs/SocketIO.cpp Commands/CLI.cpp Commands/UploadUnclassCommand.cpp Commands/AlgoSettingCommand.cpp Commands/ClassifyCommand.cpp Commands/DisplayResultsCommand.cpp Commands/DownloadResultsCommand.cpp Commands/DistanceMetrixDict.cpp Commands/ExitCommand.cpp Commands/CommandData.cpp
+HEADER	= Distances/Distance.h Distances/EuclideanDistance.h Distances/TaxicabGeometry.h Distances/MinkowskiDistance.h Distances/CanberraDistance.h Distances/ChebyshevDistance.h Server/VectorCheck.h Server/SelectSort.h Server/Database.h Server/RecieveCheckServer.h OpenFile.h IOs/SocketIO.h Commands/CLI.h Commands/UploadUnclassCommand.h Commands/AlgoSettingCommand.h Commands/ClassifyCommand.h Commands/DisplayResultsCommand.h Commands/DownloadResultsCommand.h Commands/DistanceMetrixDict.h Commands/ExitCommand.h Commands/CommandData.h
 OUTS	= server.out
 OUTC	= client.out
 CC	= g++
@@ -63,6 +63,9 @@ SocketIO.o: IOs/SocketIO.cpp
 
 StandartIO.o: IOs/StandartIO.cpp
 	$(CC) $(FLAGS) IOs/StandartIO.cpp
+
+CommandData.o: Commands/CommandData.cpp
+	$(CC) $(FLAGS) Commands/CommandData.cpp
 
 UploadUnclassCommand.o: Commands/UploadUnclassCommand.cpp
 	$(CC) $(FLAGS) Commands/UploadUnclassCommand.cpp

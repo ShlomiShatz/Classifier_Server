@@ -2,6 +2,7 @@
 #define COMMAND_H_
 
 #include <string>
+#include "CommandData.h"
 #include "../IOs/DefaultIO.h"
 
 using namespace std;
@@ -12,6 +13,7 @@ protected:
 
     string m_description;
     DefaultIO* m_dio;
+    CommandData* m_currentData;
 
 public:
 

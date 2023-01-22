@@ -11,7 +11,7 @@ class ExitCommand : public Command {
 
 public:
 	
-    ExitCommand(DefaultIO* io);
+    ExitCommand(DefaultIO* io, CommandData* cd);
 	void execute();
     string getDescription();
 };

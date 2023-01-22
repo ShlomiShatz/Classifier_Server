@@ -84,8 +84,8 @@ int main(int argc, char** argv) {
                 standio.write("failed to send file");
                 continue;
             }
-            string errorMsg = sockio.read();
-            standio.write(errorMsg);
+            fullMsg = sockio.read();
+            standio.write(fullMsg);
             continue;
         }
         string input = standio.read();

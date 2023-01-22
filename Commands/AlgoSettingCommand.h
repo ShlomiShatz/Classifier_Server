@@ -11,20 +11,17 @@ class AlgoSettingCommand : public Command {
 
 private:
 
-    int k;
-    string distanceMetric;
-    int MaxK;
     string getInfo();
     void updateValue(string input);
     
 public:
 
-    AlgoSettingCommand(DefaultIO* io);	
+    AlgoSettingCommand(DefaultIO* io, CommandData* cd);	
 	void execute();
-    void setMaxK(int MaxiK);
     string getDescription();
-    int getK();
-    string getDistanceMetric();
+    // void setMaxK(int MaxiK);
+    // int getK();
+    // string getDistanceMetric();
 };
 
 #endif

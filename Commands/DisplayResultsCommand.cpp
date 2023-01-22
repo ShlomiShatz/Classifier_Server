@@ -1,51 +1,53 @@
 #include <string>
 #include "DisplayResultsCommand.h"
+#include "CommandData.h"
 #include "Command.h"
 
 using namespace std;
 
 
 
-DisplayResultsCommand::DisplayResultsCommand(DefaultIO* io) {
+DisplayResultsCommand::DisplayResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "display results";
     Command::m_dio = io;
-    dataAlreadyUpload = false;
-    dataSorted = false;
+    Command::m_currentData = cd;
+    // dataAlreadyUpload = false;
+    // dataSorted = false;
 }
 string DisplayResultsCommand::getResultInFormat(){
-    int size = result.size();
+    int size = Command::m_currentData->getUnClassifyVect().size();
     string format = "";
     for (int i = 1; i <= size; i++){
         format = format + to_string(i);
         format = format + "\t";
-        format = format + result[i-1].getClassify();
+        format = format + Command::m_currentData->getUnClassifyVect()[i-1].getClassify();
         format = format + "\n";
     }
     format = format + "Done.";
     return format;
 }
 void DisplayResultsCommand::execute(){
-    if (!dataAlreadyUpload){
-        m_dio->write("please upload data");
+    if (!Command::m_currentData->getDataUpload()){
+        Command::m_dio->write("please upload data");
         return;
     }
-    else if (!dataSorted)
+    else if (!Command::m_currentData->getDataSort())
     {
-        m_dio->write("please classify the data");
+        Command::m_dio->write("please classify the data");
         return;
     }
-    m_dio->write(getResultInFormat());
-    m_dio->read();
+    Command::m_dio->write(getResultInFormat());
+    Command::m_dio->read();
 }
-void DisplayResultsCommand::setTestVector(vector<Database> newResult){
-    result = newResult;
-}
+// void DisplayResultsCommand::setTestVector(vector<Database> newResult){
+//     result = newResult;
+// }
 string DisplayResultsCommand::getDescription() {
     return m_description;
 }
-void DisplayResultsCommand::setDataAlreadyUpload(bool change){
-    dataAlreadyUpload = change;
-}
-void DisplayResultsCommand::setDataSorted(bool change){
-    dataSorted = change;
-}
+// void DisplayResultsCommand::setDataAlreadyUpload(bool change){
+//     dataAlreadyUpload = change;
+// }
+// void DisplayResultsCommand::setDataSorted(bool change){
+//     dataSorted = change;
+// }

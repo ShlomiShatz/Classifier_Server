@@ -1,53 +1,54 @@
 #include <string>
 #include "DownloadResultsCommand.h"
+#include "CommandData.h"
 #include "Command.h"
 
 using namespace std;
 
 
 
-DownloadResultsCommand::DownloadResultsCommand(DefaultIO* io) {
+DownloadResultsCommand::DownloadResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "download results";
     Command::m_dio = io;
-    dataAlreadyUpload = false;
-    dataSorted = false;
+    Command::m_currentData = cd;
+    // dataAlreadyUpload = false;
+    // dataSorted = false;
 }
 
 void DownloadResultsCommand::execute() {
-    if (!dataAlreadyUpload){
-        m_dio->write("please upload data");
+    if (!Command::m_currentData->getDataUpload()) {
+        Command::m_dio->write("please upload data");
         return;
     }
-    else if (!dataSorted)
-    {
-        m_dio->write("please classify the data");
+    else if (!Command::m_currentData->getDataSort()) {
+        Command::m_dio->write("please classify the data");
         return;
     }
-    m_dio->write(getResultInFormat());
-    m_dio->read();
+    Command::m_dio->write(getResultInFormat());
+    Command::m_dio->read();
 }
 string DownloadResultsCommand::getResultInFormat(){
-    int size = result.size();
+    int size = Command::m_currentData->getUnClassifyVect().size();
     string format = "";
     for (int i = 1; i <= size; i++){
         format = format + to_string(i);
         format = format + ",";
-        format = format + result[i-1].getClassify();
+        format = format + Command::m_currentData->getUnClassifyVect()[i-1].getClassify();
         format = format + "\n";
     }
     return format;
 }
-void DownloadResultsCommand::setTestVector(vector<Database> newResult){
-    result = newResult;
-}
+// void DownloadResultsCommand::setTestVector(vector<Database> newResult){
+//     result = newResult;
+// }
 
 string DownloadResultsCommand::getDescription() {
     return m_description;
 }
-void DownloadResultsCommand::setDataAlreadyUpload(bool change){
-    dataAlreadyUpload = change;
-}
-void DownloadResultsCommand::setDataSorted(bool change){
-    dataSorted = change;
-}
+// void DownloadResultsCommand::setDataAlreadyUpload(bool change){
+//     dataAlreadyUpload = change;
+// }
+// void DownloadResultsCommand::setDataSorted(bool change){
+//     dataSorted = change;
+// }
     

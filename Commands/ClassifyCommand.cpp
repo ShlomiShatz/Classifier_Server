@@ -2,6 +2,7 @@
 #include <vector>
 #include <map>
 #include "ClassifyCommand.h"
+#include "CommandData.h"
 #include "Command.h"
 #include "../Server/SelectSort.h"
 #include "DistanceMetrixDict.h"
@@ -9,26 +10,27 @@ using namespace std;
 
 
 
-ClassifyCommand::ClassifyCommand(DefaultIO* io) {
+ClassifyCommand::ClassifyCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "classify data";
     Command::m_dio = io;
+    Command::m_currentData = cd;
 }
 void ClassifyCommand::calcDistance(vector<double> vect){
     map<string, Distance*> typeDistance = DistanceMetrixDict::getInstance();
-    for (Database& elem : classify) {
-        elem.setDistRes(typeDistance[distanceMetrix]->getDistance(elem.getSpecs(), vect));
+    for (Database& elem : Command::m_currentData->getClassifyVect()) {
+        elem.setDistRes(typeDistance[Command::m_currentData->getMatric()]->getDistance(elem.getSpecs(), vect));
     }
 }
 string ClassifyCommand::getType(){
-    double pivot = SelectSort::getK(classify, k);
-    SelectSort::partitionFinal(classify, pivot);
+    double pivot = SelectSort::getK(Command::m_currentData->getClassifyVect(), Command::m_currentData->getCurrentK());
+    SelectSort::partitionFinal(Command::m_currentData->getClassifyVect(), pivot);
     map<string, int> counterMap;
     int i, max = 0;
     string maxClass = " ";
     //Iterates through the vector and calculates the number of appearances
-    for (i = 0; i < k; i++) {
+    for (i = 0; i < Command::m_currentData->getCurrentK(); i++) {
         //Checks the classification of this specific member
-        string curClass = classify[i].getClassify();
+        string curClass = Command::m_currentData->getClassifyVect()[i].getClassify();
         //If it exists in the map already, increment it
         if (counterMap.count(curClass)) counterMap[curClass]++;
         //If not, create it and apply 1
@@ -43,46 +45,47 @@ string ClassifyCommand::getType(){
     return maxClass;
 }
 void ClassifyCommand::execute() {
-    if (classify.size() == 0){
+    if (Command::m_currentData->getClassifyVect().size() == 0){
         m_dio->write("please upload data");
         return;
     }
     //if need to do it
-    if (classify.size() < k){
+    if (Command::m_currentData->getClassifyVect().size() < Command::m_currentData->getCurrentK()){
         m_dio->write("please update your k");
         return;
     }
-    for (Database& elem : test) {
+    for (Database& elem : Command::m_currentData->getUnClassifyVect()) {
         calcDistance(elem.getSpecs());
         elem.setClassify(getType());
     }
-    m_dio->write("classifying data complete");
+    Command::m_currentData->setDataSort(true);
+    Command::m_dio->write("classifying data complete");
 }
 
-void ClassifyCommand::setK(int newK){
-    k = newK;
-}
-void ClassifyCommand::setDistanceMetrix(string newDistanceMetrix){
-    distanceMetrix = newDistanceMetrix;
-}
-void ClassifyCommand::setClassifyVector(vector<Database> newClassify){
-    classify = newClassify;
-}
-void ClassifyCommand::setTestVector(vector<Database> newTest){
-    test = newTest;
-}
-int ClassifyCommand::getK(){
-    return k;
-}
-string ClassifyCommand::getDistanceMetrix(){
-    return distanceMetrix;
-}
-vector<Database> ClassifyCommand::getClassifyVector(){
-    return classify;
-}
-vector<Database> ClassifyCommand::ClassifyCommand::getTestVector(){
-    return test;
-}
+// void ClassifyCommand::setK(int newK){
+//     k = newK;
+// }
+// void ClassifyCommand::setDistanceMetrix(string newDistanceMetrix){
+//     distanceMetrix = newDistanceMetrix;
+// }
+// void ClassifyCommand::setClassifyVector(vector<Database> newClassify){
+//     classify = newClassify;
+// }
+// void ClassifyCommand::setTestVector(vector<Database> newTest){
+//     test = newTest;
+// }
+// int ClassifyCommand::getK(){
+//     return k;
+// }
+// string ClassifyCommand::getDistanceMetrix(){
+//     return distanceMetrix;
+// }
+// vector<Database> ClassifyCommand::getClassifyVector(){
+//     return classify;
+// }
+// vector<Database> ClassifyCommand::ClassifyCommand::getTestVector(){
+//     return test;
+// }
 
 string ClassifyCommand::getDescription() {
     return m_description;

@@ -9,16 +9,19 @@
 #include "DownloadResultsCommand.h"
 #include "ExitCommand.h"
 
+#include <iostream>//*********************************************************************************
+
 using namespace std;
 
 
 CLI::CLI(DefaultIO* dio) : m_dio(dio) {
-    m_coms.push_back(new UploadUnclassCommand(dio));
-    m_coms.push_back(new AlgoSettingCommand(dio));
-    m_coms.push_back(new ClassifyCommand(dio));
-    m_coms.push_back(new DisplayResultsCommand(dio));
-    m_coms.push_back(new DownloadResultsCommand(dio));
-    m_coms.push_back(new ExitCommand(dio));
+    currentData = new CommandData();
+    m_coms.push_back(new UploadUnclassCommand(dio, currentData));
+    m_coms.push_back(new AlgoSettingCommand(dio, currentData));
+    m_coms.push_back(new ClassifyCommand(dio, currentData));
+    m_coms.push_back(new DisplayResultsCommand(dio, currentData));
+    m_coms.push_back(new DownloadResultsCommand(dio, currentData));
+    m_coms.push_back(new ExitCommand(dio, currentData));
 }
 
 string CLI::printMenu() {
@@ -40,22 +43,23 @@ void CLI::start() {
         string option = m_dio->read();
         if (option == "1") {
             m_coms[0]->execute();
-            int maxK = (((UploadUnclassCommand*) m_coms[0]) ->getMaxK());
-            ((AlgoSettingCommand*)m_coms[1]) -> setMaxK(maxK);
-            ((ClassifyCommand*)m_coms[2]) -> setClassifyVector(((UploadUnclassCommand*) m_coms[0]) ->getClassifyVect());
-            ((ClassifyCommand*)m_coms[2]) -> setTestVector(((UploadUnclassCommand*) m_coms[0]) ->getUnClassifyVect());
-            ((DownloadResultsCommand*)m_coms[4]) -> setDataAlreadyUpload(true);
-            ((DisplayResultsCommand*)m_coms[3]) ->  setDataAlreadyUpload(true);
+
+            // int maxK = (((UploadUnclassCommand*) m_coms[0]) ->getMaxK());
+            // ((AlgoSettingCommand*)m_coms[1]) -> setMaxK(maxK);
+            // ((ClassifyCommand*)m_coms[2]) -> setClassifyVector(((UploadUnclassCommand*) m_coms[0]) ->getClassifyVect());
+            // ((ClassifyCommand*)m_coms[2]) -> setTestVector(((UploadUnclassCommand*) m_coms[0]) ->getUnClassifyVect());
+            // ((DownloadResultsCommand*)m_coms[4]) -> setDataAlreadyUpload(true);
+            // ((DisplayResultsCommand*)m_coms[3]) ->  setDataAlreadyUpload(true);
         } else if (option == "2") {
             m_coms[1]->execute();
-            ((ClassifyCommand*)m_coms[2]) -> setK(((AlgoSettingCommand*)m_coms[1])->getK());
-            ((ClassifyCommand*)m_coms[2]) -> setDistanceMetrix(((AlgoSettingCommand*)m_coms[1])->getDistanceMetric());
+            // ((ClassifyCommand*)m_coms[2]) -> setK(((AlgoSettingCommand*)m_coms[1])->getK());
+            // ((ClassifyCommand*)m_coms[2]) -> setDistanceMetrix(((AlgoSettingCommand*)m_coms[1])->getDistanceMetric());
         } else if (option == "3") {
             m_coms[2]->execute();
-            ((DisplayResultsCommand*)m_coms[3]) -> setTestVector(((ClassifyCommand*)m_coms[2])->getTestVector());
-            ((DownloadResultsCommand*)m_coms[4]) -> setTestVector(((ClassifyCommand*)m_coms[2])->getTestVector());
-            ((DownloadResultsCommand*)m_coms[4]) -> setDataSorted(true);
-            ((DisplayResultsCommand*)m_coms[3]) ->  setDataSorted(true);
+            // ((DisplayResultsCommand*)m_coms[3]) -> setTestVector(((ClassifyCommand*)m_coms[2])->getTestVector());
+            // ((DownloadResultsCommand*)m_coms[4]) -> setTestVector(((ClassifyCommand*)m_coms[2])->getTestVector());
+            // ((DownloadResultsCommand*)m_coms[4]) -> setDataSorted(true);
+            // ((DisplayResultsCommand*)m_coms[3]) ->  setDataSorted(true);
         } else if (option == "4") {
             m_coms[3]->execute();
         } else if (option == "5") {

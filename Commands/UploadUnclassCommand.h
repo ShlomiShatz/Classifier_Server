@@ -10,21 +10,20 @@ using namespace std;
 
 class UploadUnclassCommand : public Command {
 
-private:
+// private:
 
-    vector<Database> vectorClassify;
-    vector<Database> vectorUnClassify;
+//     vector<Database> vectorClassify;
+//     vector<Database> vectorUnClassify;
 
     
 public:
 	
     string getDescription();
-    UploadUnclassCommand(DefaultIO* io);
+    UploadUnclassCommand(DefaultIO* io, CommandData* cd);
     vector<Database> createDatabase(string input);
 	void execute();
-    int getMaxK();
-    vector<Database> getClassifyVect();
-    vector<Database> getUnClassifyVect();
+    // vector<Database> getClassifyVect();
+    // vector<Database> getUnClassifyVect();
     vector<string> toVectorString(string s);
 };
 
