@@ -21,7 +21,7 @@ string DisplayResultsCommand::getResultInFormat(){
         format = format + Command::m_currentData->getUnClassifyVect()[i-1].getClassify();
         format = format + "\n";
     }
-    format = format + "Done.";
+    format = format + "Done.~~~";
     return format;
 }
 void DisplayResultsCommand::execute(){

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <sys/socket.h>
 #include <stdio.h>
 #include <netinet/in.h>
@@ -41,15 +42,20 @@ string SocketIO::read() {
         return "error reading message";
     }
     fixedMsg = fullMsg.substr(0, finish);
-    cout << "-" << fixedMsg << "-" << endl;//***********************************************************************
-    fullMsg = fullMsg.substr(finish + 4);
-    finish = fullMsg.find("\r\n\r\n");
-    while (finish != string::npos && !fullMsg.empty()) {
-        cout << "~" << fixedMsg << "~" << endl;//***********************************************************************
-        fixedMsg.append("\n");
-        fixedMsg.append(fullMsg.substr(0, finish));
-        fullMsg = fullMsg.substr(finish + 4);
+    // cout << "-123" << endl;//****************************************************
+    if (fullMsg.substr(finish) != "\r\n\r\n") {
+        fullMsg = fullMsg.erase(0, finish + 4);
+        // cout << "-125" << endl;//****************************************************
         finish = fullMsg.find("\r\n\r\n");
+        while (finish != string::npos) {
+            // cout << "-159" << endl;//****************************************************
+            fixedMsg.append("\n");
+            fixedMsg.append(fullMsg.substr(0, finish));
+            // cout << "-178" << endl;//****************************************************
+            fullMsg = fullMsg.erase(0, finish + 4);
+            // cout << "-190" << endl;//****************************************************
+            finish = fullMsg.find("\r\n\r\n");
+        }
     }
     return fixedMsg;
 }

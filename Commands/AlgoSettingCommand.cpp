@@ -1,5 +1,6 @@
 #include <string>
 #include <map>
+#include <sstream>
 #include "AlgoSettingCommand.h"
 #include "CommandData.h"
 #include "Command.h"
@@ -19,6 +20,7 @@ string AlgoSettingCommand::getInfo(){
     info = info + to_string(Command::m_currentData->getCurrentK());
     info = info + ", distance metric = ";
     info = info + Command::m_currentData->getMatric();
+    info = info + "~~~";
     return info;
 }
 
@@ -29,18 +31,28 @@ void AlgoSettingCommand::updateValue(string input){
     if (input.empty()) {
         return;
     }
-    int found = input.find(" ");
-    if (found == string::npos){
-        throw 0;
+    int counter = 0;
+    stringstream SStr(input);
+    string temp, kString = "", dist = "";
+    while(getline(SStr, temp, ' ')) {
+        if (counter == 0) {
+            kString = temp;
+        } else if (counter == 1) {
+            dist = temp;
+        }
+        counter++;
     }
-    string subString = input.substr(0, found);
-    input = input.substr(found + 1);
+    if (counter != 2) {
+        //ask what to print/do **********************************************
+            Command::m_dio->write("invalid input");
+            return;
+    }
     map<string, Distance*> typeDistance = DistanceMetrixDict::getInstance();
-    if (typeDistance.count(input) <= 0){
+    if (typeDistance.count(dist) <= 0){
         msg = "invalid value for metric";
     }
     try {
-        potentialK = RecieveCheckServer::numCheck(subString);
+        potentialK = RecieveCheckServer::numCheck(kString);
     } catch(exception e) {
         if (msg.empty()){
             msg = "invalid value for K";
@@ -66,8 +78,7 @@ void AlgoSettingCommand::updateValue(string input){
         return;
     }
     Command::m_currentData->setCurrentK(potentialK);
-    Command::m_currentData->setMatric(input);
-    Command::m_dio->write("~~~");//********************************************************************************88
+    Command::m_currentData->setMatric(dist);
 }
 
 void AlgoSettingCommand::execute() {

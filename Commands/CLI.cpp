@@ -9,6 +9,8 @@
 #include "DownloadResultsCommand.h"
 #include "ExitCommand.h"
 
+#include <iostream>//**********************************************************************
+
 using namespace std;
 
 
@@ -31,24 +33,36 @@ string CLI::printMenu() {
         menu.append(". ");
         menu.append(m_coms[i]->getDescription());
     }
-    menu.append("\n8. exit");
+    menu.append("\n8. exit|||");
     return menu;
 }
 
 void CLI::start() {
     while (true) {
         m_dio->write(printMenu());
+        // cout << "-200" << endl;//****************************************************
         string option = m_dio->read();
+        // cout << "-201" << endl;//****************************************************
         if (option == "1") {
+            // cout << "-213" << endl;//****************************************************
             m_coms[0]->execute();
+            // cout << "-214" << endl;//****************************************************
         } else if (option == "2") {
+            // cout << "-223" << endl;//****************************************************
             m_coms[1]->execute();
+            // cout << "-224" << endl;//****************************************************
         } else if (option == "3") {
+            // cout << "-235" << endl;//****************************************************
             m_coms[2]->execute();
+            // cout << "-236" << endl;//****************************************************
         } else if (option == "4") {
+            // cout << "-245" << endl;//****************************************************
             m_coms[3]->execute();
+            // cout << "-247" << endl;//****************************************************
         } else if (option == "5") {
+            // cout << "-274" << endl;//****************************************************
             m_coms[4]->execute();
+            // cout << "-276" << endl;//****************************************************
         } else if (option == "8") {
             m_coms[5]->execute();
             break;

@@ -28,7 +28,7 @@ string DownloadResultsCommand::getResultInFormat(){
     string format = "";
     for (int i = 1; i <= size; i++){
         format = format + to_string(i);
-        format = format + ",";
+        format = format + "\t";
         format = format + Command::m_currentData->getUnClassifyVect()[i-1].getClassify();
         format = format + "\n";
     }

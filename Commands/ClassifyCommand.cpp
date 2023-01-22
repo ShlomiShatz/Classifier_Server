@@ -62,31 +62,6 @@ void ClassifyCommand::execute() {
     Command::m_dio->write("classifying data complete");
 }
 
-// void ClassifyCommand::setK(int newK){
-//     k = newK;
-// }
-// void ClassifyCommand::setDistanceMetrix(string newDistanceMetrix){
-//     distanceMetrix = newDistanceMetrix;
-// }
-// void ClassifyCommand::setClassifyVector(vector<Database> newClassify){
-//     classify = newClassify;
-// }
-// void ClassifyCommand::setTestVector(vector<Database> newTest){
-//     test = newTest;
-// }
-// int ClassifyCommand::getK(){
-//     return k;
-// }
-// string ClassifyCommand::getDistanceMetrix(){
-//     return distanceMetrix;
-// }
-// vector<Database> ClassifyCommand::getClassifyVector(){
-//     return classify;
-// }
-// vector<Database> ClassifyCommand::ClassifyCommand::getTestVector(){
-//     return test;
-// }
-
 string ClassifyCommand::getDescription() {
     return m_description;
 }
