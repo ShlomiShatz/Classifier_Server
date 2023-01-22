@@ -23,5 +23,11 @@ DistanceMetrixDict::DistanceMetrixDict(){
     m_typeDistance["CHB"] = new ChebyshevDistance();
     m_typeDistance["CAN"] = new CanberraDistance();
     m_typeDistance["MIN"] = new MinkowskiDistance();
-    
+}
+
+DistanceMetrixDict::~DistanceMetrixDict(){
+    for(map<string, Distance*>::iterator it = m_typeDistance.begin(); it!=m_typeDistance.end(); it++) {
+        delete[] it->second;
+        m_typeDistance.erase(it);
+    }
 }

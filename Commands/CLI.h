@@ -19,6 +19,7 @@ public:
 	CLI(DefaultIO* dio);
 	void start();
 	string printMenu();
+	~CLI();
     
 };
 

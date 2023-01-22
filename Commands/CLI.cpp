@@ -24,6 +24,14 @@ CLI::CLI(DefaultIO* dio) : m_dio(dio) {
     m_coms.push_back(new ExitCommand(dio, currentData));
 }
 
+CLI::~CLI() {
+    int i;
+    for (Command*& elem : m_coms) {
+        delete(elem);
+    }
+    delete(currentData);
+}
+
 string CLI::printMenu() {
     string menu = "Welcome to the KNN Classifier Server. Please Choose an option:";
     int i;

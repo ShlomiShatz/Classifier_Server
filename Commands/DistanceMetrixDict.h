@@ -10,6 +10,7 @@ class DistanceMetrixDict{
     private:
         static map<string, Distance*> m_typeDistance;
         DistanceMetrixDict();
+        ~DistanceMetrixDict();
     public:
         static map<string, Distance*> getInstance();
 };

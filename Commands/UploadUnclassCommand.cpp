@@ -74,7 +74,9 @@ void UploadUnclassCommand::execute() {
     } catch(exception e) {
         Command::m_dio->write("invalid input");
         Command::m_currentData->clearClassifyVect();
+        Command::m_currentData->clearUnClassifyVect();
         Command::m_currentData->setDataUpload(false);
+        Command::m_currentData->setDataSort(false);
         return;
     }
     Command::m_currentData->setDataUpload(true);
