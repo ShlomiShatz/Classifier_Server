@@ -16,6 +16,7 @@ private:
     string getType();
 public:
 	
+    ClassifyCommand();
     ClassifyCommand(DefaultIO* io, CommandData* cd);
 	void execute();
     string getDescription();

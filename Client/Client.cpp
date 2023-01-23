@@ -7,12 +7,19 @@
 #include <string.h>
 #include <vector>
 #include <fstream>
+#include <thread>
 #include "ClientVectorCheck.h"
 #include "../IOs/SocketIO.h"
 #include "../IOs/StandartIO.h"
 #include "../OpenFile.h"
 
 using namespace std;
+
+
+void writeToFile(string path, string fullMsg){
+    ofstream file(path);
+    file << fullMsg;
+}
 
 /**
     * The main function of the client
@@ -97,8 +104,8 @@ int main(int argc, char** argv) {
                 fullMsg = sockio.read();
                 if (fullMsg.find("please upload data") == string::npos && fullMsg.find("please classify the data") == string::npos) {
                     string path = standio.read();
-                    ofstream file(path);
-                    file << fullMsg;
+                    thread t(writeToFile, path, fullMsg);
+                    t.detach();
                     sockio.write("");
                 } else {
                     continue;

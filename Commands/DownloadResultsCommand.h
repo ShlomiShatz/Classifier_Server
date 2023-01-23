@@ -14,6 +14,7 @@ class DownloadResultsCommand : public Command {
 private:
     string getResultInFormat();
 public:
+    DownloadResultsCommand();
     DownloadResultsCommand(DefaultIO* io, CommandData* cd);
 	void execute();
     string getDescription();;

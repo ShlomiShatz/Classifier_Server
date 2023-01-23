@@ -13,6 +13,7 @@ private:
     string getResultInFormat();
 public:
 	
+    DisplayResultsCommand();
     DisplayResultsCommand(DefaultIO* io, CommandData* cd);
 	void execute();
     string getDescription();

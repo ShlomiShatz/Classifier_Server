@@ -12,8 +12,9 @@ class UploadUnclassCommand : public Command {
     
 public:
 	
-    string getDescription();
+    UploadUnclassCommand();
     UploadUnclassCommand(DefaultIO* io, CommandData* cd);
+    string getDescription();
     vector<Database> createDatabase(string input);
 	void execute();
     vector<string> toVectorString(string s);

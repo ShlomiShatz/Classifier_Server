@@ -5,7 +5,7 @@
 
 using namespace std;
 
-
+DisplayResultsCommand::DisplayResultsCommand() {}
 
 DisplayResultsCommand::DisplayResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "display results";

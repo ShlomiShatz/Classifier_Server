@@ -5,10 +5,19 @@
 #include "CommandData.h"
 #include "Command.h"
 #include "../Server/SelectSort.h"
+#include "../Distances/CanberraDistance.h"
+#include "../Distances/ChebyshevDistance.h"
+#include "../Distances/Distance.h"
+#include "../Distances/EuclideanDistance.h"
+#include "../Distances/MinkowskiDistance.h"
+#include "../Distances/TaxicabGeometry.h"
 #include "DistanceMetrixDict.h"
+
+#include <iostream>//************************************************************
+
 using namespace std;
 
-
+ClassifyCommand::ClassifyCommand() {}
 
 ClassifyCommand::ClassifyCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "classify data";
@@ -55,6 +64,7 @@ void ClassifyCommand::execute() {
         return;
     }
     for (Database& elem : Command::m_currentData->getUnClassifyVect()) {
+
         calcDistance(elem.getSpecs());
         elem.setClassify(getType());
     }

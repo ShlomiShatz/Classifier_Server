@@ -4,6 +4,8 @@
 
 using namespace std;
 
+ExitCommand::ExitCommand() {}
+
 ExitCommand::ExitCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "exit";
     Command::m_dio = io;

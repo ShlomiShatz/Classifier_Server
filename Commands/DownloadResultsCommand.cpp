@@ -5,6 +5,8 @@
 
 using namespace std;
 
+DownloadResultsCommand::DownloadResultsCommand() {}
+
 DownloadResultsCommand::DownloadResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "download results";
     Command::m_dio = io;

@@ -6,9 +6,17 @@
 #include "Command.h"
 #include "../Server/RecieveCheckServer.h"
 #include "../Distances/Distance.h"
+#include "../Distances/CanberraDistance.h"
+#include "../Distances/ChebyshevDistance.h"
+#include "../Distances/Distance.h"
+#include "../Distances/EuclideanDistance.h"
+#include "../Distances/MinkowskiDistance.h"
+#include "../Distances/TaxicabGeometry.h"
 #include "DistanceMetrixDict.h"
 
 using namespace std;
+
+AlgoSettingCommand::AlgoSettingCommand() {}
 
 AlgoSettingCommand::AlgoSettingCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "algorithm settings";

@@ -3,6 +3,8 @@
 #include <sstream>
 #include "VectorCheck.h"
 
+#include <iostream>//*******************************************************************
+
 using namespace std;
 
 /**
@@ -188,6 +190,7 @@ vector<double> VectorCheck::stringVectToVector(vector<string> s) {
     vector<double> vect;
     //Iterates through the string vector
     for (auto& elem : s){
+        cout << elem << endl;//***************************************************************
         //Checks for excessive spaces in the beginning of the object, and cuts it accordingly
         int j = 0;
         for (j = 0; j < elem.length(); j++) if (elem[j] != ' ') break;

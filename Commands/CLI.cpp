@@ -2,6 +2,7 @@
 #include "CLI.h"
 #include <vector>
 #include "Command.h"
+#include "../IOs/DefaultIO.h"
 #include "UploadUnclassCommand.h"
 #include "AlgoSettingCommand.h"
 #include "ClassifyCommand.h"
@@ -15,21 +16,29 @@ using namespace std;
 
 
 CLI::CLI(DefaultIO* dio) : m_dio(dio) {
-    currentData = new CommandData();
-    m_coms.push_back(new UploadUnclassCommand(dio, currentData));
-    m_coms.push_back(new AlgoSettingCommand(dio, currentData));
-    m_coms.push_back(new ClassifyCommand(dio, currentData));
-    m_coms.push_back(new DisplayResultsCommand(dio, currentData));
-    m_coms.push_back(new DownloadResultsCommand(dio, currentData));
-    m_coms.push_back(new ExitCommand(dio, currentData));
+    m_upl = UploadUnclassCommand(dio, &m_currentData);
+    m_alg = AlgoSettingCommand(dio, &m_currentData);
+    m_cla = ClassifyCommand(dio, &m_currentData);
+    m_disp = DisplayResultsCommand(dio, &m_currentData);
+    m_downl = DownloadResultsCommand(dio, &m_currentData);
+    m_exitc = ExitCommand(dio, &m_currentData);
+    m_coms.push_back(&m_upl);
+    m_coms.push_back(&m_alg);
+    m_coms.push_back(&m_cla);
+    m_coms.push_back(&m_disp);
+    m_coms.push_back(&m_downl);
+    m_coms.push_back(&m_exitc);
 }
 
 CLI::~CLI() {
-    int i;
+
+    // for(map<string, Distance*>::iterator it = m_typeDistance.begin(); it!=m_typeDistance.end(); it++) {
+    //     delete[] it->second;
+    //     m_typeDistance.erase(it);
+    // }
     for (Command*& elem : m_coms) {
         delete(elem);
     }
-    delete(currentData);
 }
 
 string CLI::printMenu() {

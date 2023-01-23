@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <thread>
 #include "RecieveCheckServer.h"
 #include "../OpenFile.h"
 #include "../IOs/SocketIO.h"
@@ -14,6 +15,12 @@
 
 
 using namespace std;
+
+void startAction(int clientSocket){
+    SocketIO sockio(clientSocket);
+    CLI cli(&sockio);
+    cli.start();
+}
 
 /**
  * open socket ,recieve clients and give them answer
@@ -60,8 +67,7 @@ int main(int argc, char** argv) {
             perror("system operation failed");
             continue;
         }
-        SocketIO sockio(client_sock);
-        CLI cli(&sockio);
-        cli.start();
+        thread t(startAction, client_sock);
+        t.detach();
     }
 }

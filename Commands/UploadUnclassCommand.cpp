@@ -6,7 +6,11 @@
 #include "Command.h"
 #include "CLI.h"
 
+#include <iostream>//*************************************************************************
+
 using namespace std;
+
+UploadUnclassCommand::UploadUnclassCommand() {}
 
 UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "upload an unclassified csv data file";
@@ -60,7 +64,9 @@ void UploadUnclassCommand::execute() {
         return;
     }
     try {
+        cout << "READING" << endl;//************************************************************
         Command::m_currentData->setClassifyVect(UploadUnclassCommand::createDatabase(data));
+        cout << "FINISHED" << endl;//************************************************************
         Command::m_currentData->setMaxK(Command::m_currentData->getClassifyVect().size());
     } catch(exception e) {
         Command::m_dio->write("invalid input");

@@ -1,7 +1,6 @@
 #include <string>
 #include "CommandData.h"
 
-
 CommandData::CommandData() {
     m_currentK = 5;
     m_maxK = -1;

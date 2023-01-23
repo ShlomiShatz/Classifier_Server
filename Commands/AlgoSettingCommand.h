@@ -16,9 +16,11 @@ private:
     
 public:
 
+    AlgoSettingCommand();
     AlgoSettingCommand(DefaultIO* io, CommandData* cd);	
 	void execute();
     string getDescription();
+    
 };
 
 #endif

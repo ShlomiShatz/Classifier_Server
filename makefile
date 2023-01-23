@@ -7,7 +7,8 @@ HEADER	= Distances/Distance.h Distances/EuclideanDistance.h Distances/TaxicabGeo
 OUTS	= server.out
 OUTC	= client.out
 CC	= g++
-FLAGS	= -g -c -std=c++11 -pthread
+FLAGS	= -g -c -std=c++11
+LFLAGS	= -pthread
 
 all: $(OBJS) $(OBJSCLIENT)
 	$(CC) -g $(OBJS) -o $(OUTS) $(LFLAGS)
