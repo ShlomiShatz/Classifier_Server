@@ -217,6 +217,7 @@ vector<double> VectorCheck::stringVectToVector(vector<string> s) {
             for (j = 0; j < elen; j++) {
                 if (elem[j] == '.') {
                     //If there are more than one dot, throws an exception
+
                     if (pointFlag) throw exception();
                     else {
                         pointFlag = true;

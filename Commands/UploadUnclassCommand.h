@@ -30,7 +30,9 @@ public:
     */
     string getDescription();
 
-    vector<Database> createDatabase(string input);
+    vector<Database> createUnClassifiedDatabase(string input);
+
+    vector<Database> createClassifiedDatabase(string input);
 
     /**
     * The function that runs this command

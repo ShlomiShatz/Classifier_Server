@@ -70,6 +70,7 @@ double Database::getDist() const {
  * @param line the line from csv file to be built by
 */
 Database::Database(vector<string> line) {
+
     //Sets the classification by the end of the vector
     setClassify(line.back());
     //Pops it
