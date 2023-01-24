@@ -73,15 +73,11 @@ int main(int argc, char** argv) {
     string fullMsg = sockio.read();
     while (true) {
         //Takes the full message from the server
-        // cout << "-456" << endl;//****************************************************
-        // cout << "-470" << endl;//****************************************************
         int finish = fullMsg.find("~~~");
         if (finish != string::npos) {
             fullMsg = fullMsg.erase(finish, string::npos);
             standio.write(fullMsg);
-            // cout << "-489" << endl;//****************************************************
             string input = standio.read();
-            // cout << "-495" << endl;//****************************************************
             try {
                 sockio.write(input);
             } catch (exception &err) {
@@ -91,9 +87,7 @@ int main(int argc, char** argv) {
             finish = fullMsg.find("|||");
             fullMsg = fullMsg.erase(finish, string::npos);
             standio.write(fullMsg);
-            // cout << "-477" << endl;//****************************************************
             string input = standio.read();
-            // cout << "-488" << endl;//****************************************************
             try {
                 sockio.write(input);
             } catch (exception &err) {

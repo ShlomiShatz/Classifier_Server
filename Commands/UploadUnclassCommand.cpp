@@ -6,8 +6,6 @@
 #include "Command.h"
 #include "CLI.h"
 
-#include <iostream>//*************************************************************************
-
 using namespace std;
 
 UploadUnclassCommand::UploadUnclassCommand() {}
@@ -50,15 +48,8 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
         row.clear();
         row = UploadUnclassCommand::toVectorString(temp);
         if (size != row.size()){
-            for (auto& elem : row) {
-                cout << elem << " ";
-            }
-            cout << endl;
             throw exception();
         }
-        for (auto& elem : row) {
-                cout << elem << " ";
-            }
         Database db(row);
         vect.push_back(db);
     }

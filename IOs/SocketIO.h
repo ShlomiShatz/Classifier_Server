@@ -7,11 +7,10 @@
 using namespace std;
 
 class SocketIO : public DefaultIO {
+    
     private:
 
         int sock;
-
-        //string convertToChar(char[] buffer);
 
     public:
 

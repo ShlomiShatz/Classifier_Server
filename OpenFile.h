@@ -20,12 +20,6 @@ public:
     */
     OpenFile(string name);
 
-    // /**
-    // * The function used to create a Database vector, based on the file name
-    // * @return the created Database vector
-    // */
-    // vector<Database> CreateDatabase();
-
     string ClientFile();
 };
 #endif

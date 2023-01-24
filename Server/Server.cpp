@@ -14,7 +14,6 @@
 #include "../IOs/SocketIO.h"
 #include "../Commands/CLI.h"
 
-
 using namespace std;
 
 void startAction(int clientSocket){
@@ -53,7 +52,7 @@ int main(int argc, char** argv) {
             perror("system operation failed");
             return 0;
         }
-    } catch(exception &err) {
+    } catch (exception &err) {
         cout << "invalid port" << endl;
         return 0;
     }
@@ -75,5 +74,4 @@ int main(int argc, char** argv) {
     for (auto& elem : DistanceMetrixDict::getInstance()) {
         delete(elem.second);
     }
-    
 }

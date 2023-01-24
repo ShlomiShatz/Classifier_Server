@@ -15,6 +15,7 @@ public:
     ExitCommand(DefaultIO* io, CommandData* cd);
 	void execute();
     string getDescription();
+    
 };
 
 #endif
