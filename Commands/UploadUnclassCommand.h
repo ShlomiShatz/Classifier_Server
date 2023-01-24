@@ -23,14 +23,22 @@ public:
     * @param cd the full data structure of this program
     */
     UploadUnclassCommand(DefaultIO* io, CommandData* cd);
+
+    /**
+    * The function returns the description of this command
+    * @return the description
+    */
     string getDescription();
+
     vector<Database> createDatabase(string input);
 
     /**
     * The function that runs this command
     */
 	void execute();
+
     vector<string> toVectorString(string s);
+    
     void resetRecords();
     
 };

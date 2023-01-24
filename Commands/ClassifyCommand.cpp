@@ -30,7 +30,13 @@ ClassifyCommand::ClassifyCommand(DefaultIO* io, CommandData* cd) {
     Command::m_dio = io;
     Command::m_currentData = cd;
 }
-void ClassifyCommand::calcDistance(vector<double> vect){
+
+/**
+* The function calculates the distance from a vector to the classifiers
+* @param vect the vector being calculated
+*/
+void ClassifyCommand::calcDistance(vector<double> vect) {
+    
     map<string, Distance*> typeDistance = DistanceMetrixDict::getInstance();
     for (Database& elem : Command::m_currentData->getClassifyVect()) {
         elem.setDistRes(typeDistance[Command::m_currentData->getMatric()]->getDistance(elem.getSpecs(), vect));
@@ -82,6 +88,10 @@ void ClassifyCommand::execute() {
     Command::m_dio->write("classifying data complete");
 }
 
+/**
+* The function returns the description of this command
+* @return the description
+*/
 string ClassifyCommand::getDescription() {
     return m_description;
 }

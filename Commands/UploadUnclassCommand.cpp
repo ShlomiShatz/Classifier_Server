@@ -54,7 +54,7 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     int rowSize = 0;
     stringstream SStr(input);
     getline(SStr, temp, '\n');
-    if (temp.length() == 0) continue;
+    if (temp.length() == 0) throw exception();
     row = UploadUnclassCommand::toVectorString(temp);
     int size = row.size();
     Database db(row);
@@ -114,6 +114,10 @@ void UploadUnclassCommand::execute() {
     Command::m_dio->write("Upload complete.");
 }
 
+/**
+* The function returns the description of this command
+* @return the description
+*/
 string UploadUnclassCommand::getDescription() {
     return m_description;
 }

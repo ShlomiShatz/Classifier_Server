@@ -50,6 +50,10 @@ void DisplayResultsCommand::execute(){
     Command::m_dio->read();
 }
 
+/**
+* The function returns the description of this command
+* @return the description
+*/
 string DisplayResultsCommand::getDescription() {
     return m_description;
 }

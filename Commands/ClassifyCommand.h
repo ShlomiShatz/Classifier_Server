@@ -15,7 +15,7 @@ private:
 
     void calcDistance(vector<double> vect);
     string getType();
-    
+
 public:
 	
     /**
@@ -34,6 +34,11 @@ public:
     * The function that runs this command
     */
 	void execute();
+
+    /**
+    * The function returns the description of this command
+    * @return the description
+    */
     string getDescription();
 };
 

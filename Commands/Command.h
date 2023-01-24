@@ -22,6 +22,10 @@ public:
     */
 	virtual void execute() = 0;
 
+    /**
+    * The function returns the description of this command
+    * @return the description
+    */
     virtual string getDescription() = 0;
     
     

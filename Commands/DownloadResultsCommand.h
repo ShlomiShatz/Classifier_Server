@@ -29,6 +29,11 @@ public:
     */
     DownloadResultsCommand(DefaultIO* io, CommandData* cd);
 	void execute();
+
+    /**
+    * The function returns the description of this command
+    * @return the description
+    */
     string getDescription();
     
 };

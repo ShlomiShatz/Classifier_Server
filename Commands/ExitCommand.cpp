@@ -27,6 +27,10 @@ void ExitCommand::execute() {
     return;
 }
 
+/**
+* The function returns the description of this command
+* @return the description
+*/
 string ExitCommand::getDescription() {
     return m_description;
 }

@@ -48,6 +48,10 @@ string DownloadResultsCommand::getResultInFormat(){
     return format;
 }
 
+/**
+* The function returns the description of this command
+* @return the description
+*/
 string DownloadResultsCommand::getDescription() {
     return m_description;
 }   

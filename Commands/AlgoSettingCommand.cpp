@@ -120,11 +120,18 @@ void AlgoSettingCommand::updateValue(string input) {
 * The function that runs this command
 */
 void AlgoSettingCommand::execute() {
+    //Sends the info of the settings
     Command::m_dio->write(getInfo());
+    //Takes data from the client
     string data = Command::m_dio->read();
+    //Calls a function to update the values
     updateValue(data);
 }
 
+/**
+* The function returns the description of this command
+* @return the description
+*/
 string AlgoSettingCommand::getDescription() {
     return m_description;
 }

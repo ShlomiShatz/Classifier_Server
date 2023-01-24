@@ -10,8 +10,17 @@ using namespace std;
 class AlgoSettingCommand : public Command {
 
 private:
-
+    
+    /**
+    * The function returns the information of the current algorythm settings
+    * @return the current settings
+    */
     string getInfo();
+
+    /**
+    * The function updates the algorythm settings
+    * @param input settings to be updated by
+    */
     void updateValue(string input);
     
 public:
@@ -32,6 +41,11 @@ public:
     * The function that runs this command
     */
 	void execute();
+
+    /**
+    * The function returns the description of this command
+    * @return the description
+    */
     string getDescription();
     
 };

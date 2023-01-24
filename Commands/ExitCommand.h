@@ -27,6 +27,11 @@ public:
     * The function that runs this command
     */
 	void execute();
+
+    /**
+    * The function returns the description of this command
+    * @return the description
+    */
     string getDescription();
     
 };
