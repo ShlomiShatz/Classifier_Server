@@ -11,6 +11,8 @@ class SocketIO : public DefaultIO {
 
         int sock;
 
+        //string convertToChar(char[] buffer);
+
     public:
 
         SocketIO(int sock);

@@ -97,15 +97,14 @@ SocketIO::SocketIO(int sock) : sock(sock) {}
 //     }
     
 // }
-
 string SocketIO::read() {
     string length = "";
     string receive = "";
     while (receive != "^"){
         length.append(receive);
-        char buffer[1] = {0};
+        char buffer[2] = {0};
         int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(sock, buffer, expected_data_len, 0);
+        int read_bytes = recv(sock, buffer, expected_data_len - 1, 0);
         if (read_bytes == 0) {
             continue;
         }
@@ -117,7 +116,7 @@ string SocketIO::read() {
     }
 
     string message = readAll(stoi(length));
-    cout << "###" << message << "###" << endl;
+    //cout << "###" << message << "###" << endl;
     return message;
 
 }
@@ -128,9 +127,9 @@ string SocketIO::readAll(int length) {
     int numPackets = length / 4000;
     int i;
     for (i = 0; i < numPackets; i++) {
-        char buffer[4000] = {0};
+        char buffer[4001] = {0};
         int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(sock, buffer, expected_data_len, 0);
+        int read_bytes = recv(sock, buffer, expected_data_len - 1, 0);
         if (read_bytes == 0) {
             continue;
         }
@@ -141,19 +140,21 @@ string SocketIO::readAll(int length) {
         fullMsg.append(partMsg);
     }
 
-    cout << "REST: " << rest << endl;
+    //cout << "REST: " << rest << endl;
     if (rest == 0) return fullMsg;
-    char buffer[rest] = {0};
+    char buffer[rest + 1] = {0};
     string Buffstr(buffer);
-    cout << "BUFFSTR: " << "***" << Buffstr << "***" << endl;
+    //cout << "BUFFSTR: " << "***" << Buffstr << "***" << endl;
     int expected_data_len = sizeof(buffer);
-    int read_bytes = recv(sock, buffer, expected_data_len, 0);
+    //cout << "size buffer: " << expected_data_len << endl;
+    int read_bytes = recv(sock, buffer, expected_data_len - 1, 0);
     if (read_bytes < 0) {
         perror("system operation failed");
         return "";
     }
     string partMsg(buffer);
-    cout << "$$$" << partMsg << "$$$" << endl;
+    //cout << "BUFFSTR- after: " << "***" << Buffstr << "***" << endl;
+    //cout << "$$$" << partMsg << "$$$" << endl;
     fullMsg.append(partMsg);
     return fullMsg;
 }
@@ -161,10 +162,10 @@ string SocketIO::readAll(int length) {
 void SocketIO::write(string input) {
     int input_size = input.length();
     string current = to_string(input_size);
-    cout << "NUMBER: " << current << endl;
+    //cout << "NUMBER: " << current << endl;
     current.append("^");
     current.append(input);
-    cout << "---" << current << "---" << endl;
+    //cout << "---" << current << "---" << endl;
     //Checks for the input and converts to char*
     int data_len = current.length();
     char *data_addr = &current[0];
