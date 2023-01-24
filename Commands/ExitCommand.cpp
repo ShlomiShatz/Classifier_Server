@@ -14,7 +14,7 @@ ExitCommand::ExitCommand(DefaultIO* io, CommandData* cd) {
 
 void ExitCommand::execute() {
     //need to check if work
-    Command::m_dio->~DefaultIO();
+    // Command::m_dio->~DefaultIO();
     return;
 }
 

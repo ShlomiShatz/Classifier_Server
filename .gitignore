@@ -3,3 +3,9 @@ iris_classified.csv
 .vscode/settings.json
 .vscode/c_cpp_properties.json
 .vscode/tasks.json
+datasets/beans/beans_Classified.csv
+.gitignore
+datasets/wine/wine_Classified.csv
+datasets/beans/beans_UnClassified.csv
+datasets/iris/iris_Unclassified.csv
+datasets/wine/wine_UnClassified.csv

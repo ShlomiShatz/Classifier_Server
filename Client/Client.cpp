@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
                     string path = standio.read();
                     thread t(writeToFile, path, fullMsg);
                     t.detach();
-                    sockio.write("");
+                    sockio.write(" ");
                 } else {
                     continue;
                 }

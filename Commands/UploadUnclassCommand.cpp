@@ -39,20 +39,33 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     getline(SStr, temp, '\n');
     row = UploadUnclassCommand::toVectorString(temp);
     int size = row.size();
+    int counter = 0;//****************************************************************
     Database db(row);
     vect.push_back(db);
     if (temp.length() != 0) {
         row.push_back(temp);
     } else {
-        throw 0;
+        throw exception();
     }
+    counter++;//********************************************************8
     while (getline(SStr, temp, '\n')) {
+        counter++;//********************************************************8
         row.clear();
         row = UploadUnclassCommand::toVectorString(temp);
         if (size != row.size()){
-            throw 0;
+            for (auto& elem : row) {
+                cout << elem << " ";
+            }
+            cout << endl;
+            cout << "ROW SIZE COUNTER: " << counter << " SIZE: " << size << " ROW SIZE: " << row.size() << endl;//*********************************************************
+            throw exception();
         }
+        for (auto& elem : row) {
+                cout << elem << " ";
+            }
+        cout << "DB COUNTER: " << counter << endl;//*********************************************************
         Database db(row);
+        cout << "DB FINISHED: " << counter << endl;//*********************************************************
         vect.push_back(db);
     }
     return vect;
@@ -64,9 +77,7 @@ void UploadUnclassCommand::execute() {
         return;
     }
     try {
-        cout << "READING" << endl;//************************************************************
         Command::m_currentData->setClassifyVect(UploadUnclassCommand::createDatabase(data));
-        cout << "FINISHED" << endl;//************************************************************
         Command::m_currentData->setMaxK(Command::m_currentData->getClassifyVect().size());
     } catch(exception e) {
         Command::m_dio->write("invalid input");

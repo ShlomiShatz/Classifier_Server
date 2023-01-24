@@ -3,8 +3,6 @@
 #include <sstream>
 #include "VectorCheck.h"
 
-#include <iostream>//*******************************************************************
-
 using namespace std;
 
 /**
@@ -67,19 +65,19 @@ vector<string> VectorCheck::stringToVectorString(string s){
         int j = 0;
         int tlen = temp.length();
         //After cutting the string, if the first char of it is not a digit, dot or a minus, throws an exception
-        if (!isdigit(temp[0]) && temp[0] != '-' && temp[0] != '.') throw 0;
+        if (!isdigit(temp[0]) && temp[0] != '-' && temp[0] != '.') throw exception();
         //If it is a dot alone, add zeros
         if (tlen == 1 && temp[0] == '.') temp = "0.0";
         //if the temp is '-' only, throws an exception
-        if (tlen == 1 && temp[0] == '-') throw 0;
+        if (tlen == 1 && temp[0] == '-') throw exception();
         //If there are point and minus combined, throws an exception
-        if (tlen > 1) if (temp[0] == '-' && temp[1] == '.') throw 0;
+        if (tlen > 1) if (temp[0] == '-' && temp[1] == '.') throw exception();
         //Checks that the number is not too big
-        if (tlen > 250) throw 0;
+        if (tlen > 250) throw exception();
         //If there is more than one digit in the number, checks its validity
         if (tlen > 1) {
             //If the last char is not a digit, throws an exception
-            if (!isdigit(temp[tlen - 1]) && temp[tlen - 1] != '.') throw 0;
+            if (!isdigit(temp[tlen - 1]) && temp[tlen - 1] != '.') throw exception();
             if (exponentCheck(temp)) {
                 //Adds to value to the vector
                 vect.push_back(temp);
@@ -90,7 +88,7 @@ vector<string> VectorCheck::stringToVectorString(string s){
             for (j = 0; j < tlen; j++) {
                 if (temp[j] == '.') {
                     //If there are more than one dot, throws an exception
-                    if (pointFlag) throw 0;
+                    if (pointFlag) throw exception();
                     else {
                         pointFlag = true;
                         continue;
@@ -104,7 +102,7 @@ vector<string> VectorCheck::stringToVectorString(string s){
                                 continue;
                             }
                         }
-                        throw 0;
+                        throw exception();
                     }
                 }
             }
@@ -133,19 +131,19 @@ vector<double> VectorCheck::stringToVector(string s) {
         if (j) temp = temp.substr(j, temp.length() - j);
         int tlen = temp.length();
         //After cutting the string, if the first char of it is not a digit, dot or a minus, throws an exception
-        if (!isdigit(temp[0]) && temp[0] != '-' && temp[0] != '.') throw 0;
+        if (!isdigit(temp[0]) && temp[0] != '-' && temp[0] != '.') throw exception();
         //If it is a dot alone, add zeros
         if (tlen == 1 && temp[0] == '.') temp = "0.0";
         //if the temp is '-' only, throws an exception
-        if (tlen == 1 && temp[0] == '-') throw 0;
+        if (tlen == 1 && temp[0] == '-') throw exception();
         //If there are point and minus combined, throws an exception
-        if (tlen > 1) if (temp[0] == '-' && temp[1] == '.') throw 0;
+        if (tlen > 1) if (temp[0] == '-' && temp[1] == '.') throw exception();
         //Checks that the number is not too big
-        if (tlen > 250) throw 0;
+        if (tlen > 250) throw exception();
         //If there is more than one digit in the number, checks its validity
         if (tlen > 1) {
             //If the last char is not a digit, throws an exception
-            if (!isdigit(temp[tlen - 1]) && temp[tlen - 1] != '.') throw 0;
+            if (!isdigit(temp[tlen - 1]) && temp[tlen - 1] != '.') throw exception();
             if (exponentCheck(temp)) {
                 //Adds to value to the vector
                 vect.push_back(stod(temp));
@@ -156,7 +154,7 @@ vector<double> VectorCheck::stringToVector(string s) {
             for (j = 0; j < tlen; j++) {
                 if (temp[j] == '.') {
                     //If there are more than one dot, throws an exception
-                    if (pointFlag) throw 0;
+                    if (pointFlag) throw exception();
                     else {
                         pointFlag = true;
                         continue;
@@ -170,7 +168,7 @@ vector<double> VectorCheck::stringToVector(string s) {
                                 continue;
                             }
                         }
-                        throw 0;
+                        throw exception();
                     }
                 }
             }
@@ -190,26 +188,25 @@ vector<double> VectorCheck::stringVectToVector(vector<string> s) {
     vector<double> vect;
     //Iterates through the string vector
     for (auto& elem : s){
-        cout << elem << endl;//***************************************************************
         //Checks for excessive spaces in the beginning of the object, and cuts it accordingly
         int j = 0;
         for (j = 0; j < elem.length(); j++) if (elem[j] != ' ') break;
         if (j) elem = elem.substr(j, elem.length() - j);
         int elen = elem.length();
         //After cutting the string, if the first char of it is not a digit, dot or minus, throws an exception
-        if (!isdigit(elem[0]) && elem[0] != '-' && elem[0] != '.') throw 0;
+        if (!isdigit(elem[0]) && elem[0] != '-' && elem[0] != '.') throw exception();
         //If it is a dot alone, add zeros
         if (elen == 1 && elem[0] == '.') elem = "0.0";
         //if the elem is '-', throws an exception
-        if (elen == 1 && elem[0] == '-') throw 0;
+        if (elen == 1 && elem[0] == '-') throw exception();
         //If there are point and minus combined, throws an exception
-        if (elen > 1) if (elem[0] == '-' && elem[1] == '.') throw 0;
+        if (elen > 1) if (elem[0] == '-' && elem[1] == '.') throw exception();
         //Checks that the number is not to big
-        if (elen > 250) throw 0;
+        if (elen > 250) throw exception();
         //If there is more than one digit in the number, checks its validity
         if (elen > 1) {
             //If the last char is not a digit, throws an exception
-            if (!isdigit(elem[elen - 1]) && elem[elen - 1] != '.') throw 0;
+            if (!isdigit(elem[elen - 1]) && elem[elen - 1] != '.') throw exception();
             if (exponentCheck(elem)) {
                 //Adds to value to the vector
                 vect.push_back(stod(elem));
@@ -220,7 +217,7 @@ vector<double> VectorCheck::stringVectToVector(vector<string> s) {
             for (j = 0; j < elen; j++) {
                 if (elem[j] == '.') {
                     //If there are more than one dot, throws an exception
-                    if (pointFlag) throw 0;
+                    if (pointFlag) throw exception();
                     else {
                         pointFlag = true;
                         continue;
@@ -228,7 +225,7 @@ vector<double> VectorCheck::stringVectToVector(vector<string> s) {
                 } else {
                     if (elem[j] == '-' && j == 0) j++;
                     //If a part of the string is not a dot, makes sure it is a digit or a valid exponent
-                    if (!isdigit(elem[j])) throw 0;
+                    if (!isdigit(elem[j])) throw exception();
                 }
             }
         }

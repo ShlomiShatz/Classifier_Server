@@ -12,6 +12,7 @@ class DistanceMetrixDict{
         DistanceMetrixDict();
     public:
         static map<string, Distance*> getInstance();
+        // void freeMemoryMap();
 };
 
 #endif

@@ -14,6 +14,8 @@
 #include "../Distances/TaxicabGeometry.h"
 #include "DistanceMetrixDict.h"
 
+#include <iostream>//**********************************************************
+
 using namespace std;
 
 AlgoSettingCommand::AlgoSettingCommand() {}
@@ -56,7 +58,8 @@ void AlgoSettingCommand::updateValue(string input){
             return;
     }
     map<string, Distance*> typeDistance = DistanceMetrixDict::getInstance();
-    if (typeDistance.count(dist) <= 0){
+    cout << typeDistance["AUC"] << endl;//******************************************************
+    if (DistanceMetrixDict::getInstance().count(dist) <= 0){
         msg = "invalid value for metric";
     }
     try {

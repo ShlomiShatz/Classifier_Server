@@ -20,6 +20,7 @@ void startAction(int clientSocket){
     SocketIO sockio(clientSocket);
     CLI cli(&sockio);
     cli.start();
+    close(clientSocket);
 }
 
 /**
@@ -60,7 +61,9 @@ int main(int argc, char** argv) {
         return 0;
     }
     while(true) {
+        cout << "START OF WHILE" << endl;
         struct sockaddr_in client_sin;
+        cout << "END OF WHILE1" << endl;
         unsigned int addr_len = sizeof(client_sin);
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
         if (client_sock < 0) {

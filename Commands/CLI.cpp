@@ -31,14 +31,10 @@ CLI::CLI(DefaultIO* dio) : m_dio(dio) {
 }
 
 CLI::~CLI() {
-
     // for(map<string, Distance*>::iterator it = m_typeDistance.begin(); it!=m_typeDistance.end(); it++) {
     //     delete[] it->second;
     //     m_typeDistance.erase(it);
     // }
-    for (Command*& elem : m_coms) {
-        delete(elem);
-    }
 }
 
 string CLI::printMenu() {
@@ -88,7 +84,5 @@ void CLI::start() {
             continue;
         }
     }
-
-    
 }
     
