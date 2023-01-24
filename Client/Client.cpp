@@ -13,11 +13,14 @@
 #include "../IOs/StandartIO.h"
 #include "../OpenFile.h"
 
-using namespace std;
 
+using namespace std;
 
 void writeToFile(string path, string fullMsg){
     ofstream file(path);
+    if (!file.is_open()) {
+        cout << "file creation: invalid path!" << endl;
+    }
     file << fullMsg;
 }
 
