@@ -10,9 +10,13 @@ class StandartIO: public DefaultIO {
 
     public:
 
-        string read();
+        ~StandartIO();
 
-        void write(string s);
+        StandartIO();
+
+        string read() override;
+
+        void write(string s) override;
 
 };
 
