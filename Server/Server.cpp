@@ -16,6 +16,10 @@
 
 using namespace std;
 
+/**
+ * The function that starts the CLI with the given socket
+ * @param clientSocket the socket being connected with
+*/
 void startAction(int clientSocket){
     SocketIO sockio(clientSocket);
     CLI cli(&sockio);
@@ -30,6 +34,7 @@ void startAction(int clientSocket){
  * @return 0 when the function end
 */
 int main(int argc, char** argv) {
+    //Checks number of arguments
     if (argc != 2) {
 	    cout << "wrong number of arguments" << endl; 
         return 0;
@@ -38,6 +43,7 @@ int main(int argc, char** argv) {
     try {
         //Checking the validity of the port number
         const int port_no = RecieveCheckServer::numCheck(argv[1]);
+        //Start up the server
         struct sockaddr_in sin;
         memset(&sin, 0, sizeof(sin));
         sin.sin_family = AF_INET;
@@ -61,6 +67,7 @@ int main(int argc, char** argv) {
         return 0;
     }
     while(true) {
+        //Waits for clients
         struct sockaddr_in client_sin;
         unsigned int addr_len = sizeof(client_sin);
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
@@ -68,6 +75,7 @@ int main(int argc, char** argv) {
             perror("system operation failed");
             continue;
         }
+        //Creates a thread for every client connected
         thread t(startAction, client_sock);
         t.detach();
     }

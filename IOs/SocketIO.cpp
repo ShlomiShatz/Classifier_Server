@@ -49,10 +49,12 @@ string SocketIO::read() {
  * @return the full message
 */
 string SocketIO::readAll(int length) {
+    //Devides the information to packets of 4000
     string fullMsg = "";
     int rest = length % 4000;
     int numPackets = length / 4000;
     int i;
+    //Iterates through the information and takes it in
     for (i = 0; i < numPackets; i++) {
         char buffer[4001] = {0};
         int expected_data_len = sizeof(buffer);
@@ -64,9 +66,10 @@ string SocketIO::readAll(int length) {
             break;
         }
         string partMsg(buffer);
+        //Appends the information to the full message
         fullMsg.append(partMsg);
     }
-
+    //Takes in the rest of the data
     if (rest == 0) return fullMsg;
     char buffer[rest + 1] = {0};
     int expected_data_len = sizeof(buffer);
@@ -77,10 +80,16 @@ string SocketIO::readAll(int length) {
     }
     string partMsg(buffer);
     fullMsg.append(partMsg);
+    //Returns the full message
     return fullMsg;
 }
 
+/**
+ * The function incharge of sending data
+ * @param input the string being sent
+*/
 void SocketIO::write(string input) {
+    //Adds the length and a special character at the beginning of the string
     int input_size = input.length();
     string current = to_string(input_size);
     current.append("^");

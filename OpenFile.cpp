@@ -13,6 +13,10 @@ using namespace std;
 */
 OpenFile::OpenFile(string name): fileName(name) {}
 
+/**
+ * The funcion reads a file and converts it to string
+ * @return the string converted
+*/
 string OpenFile::ClientFile() {
     ifstream f(fileName);
     if (!f.is_open()) throw exception();

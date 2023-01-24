@@ -20,6 +20,11 @@ public:
     */
     OpenFile(string name);
 
+
+    /**
+     * The funcion reads a file and converts it to string
+     * @return the string converted
+    */
     string ClientFile();
 };
 #endif
