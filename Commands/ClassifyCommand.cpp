@@ -13,8 +13,6 @@
 #include "../Distances/TaxicabGeometry.h"
 #include "DistanceMetrixDict.h"
 
-#include <iostream>//************************************************************
-
 using namespace std;
 
 ClassifyCommand::ClassifyCommand() {}
