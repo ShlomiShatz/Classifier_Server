@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <thread>
 #include "RecieveCheckServer.h"
+#include "../Commands/DistanceMetrixDict.h"
 #include "../OpenFile.h"
 #include "../IOs/SocketIO.h"
 #include "../Commands/CLI.h"
@@ -61,9 +62,7 @@ int main(int argc, char** argv) {
         return 0;
     }
     while(true) {
-        cout << "START OF WHILE" << endl;
         struct sockaddr_in client_sin;
-        cout << "END OF WHILE1" << endl;
         unsigned int addr_len = sizeof(client_sin);
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
         if (client_sock < 0) {
@@ -73,4 +72,8 @@ int main(int argc, char** argv) {
         thread t(startAction, client_sock);
         t.detach();
     }
+    for (auto& elem : DistanceMetrixDict::getInstance()) {
+        delete(elem.second);
+    }
+    
 }

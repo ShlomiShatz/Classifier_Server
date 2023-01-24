@@ -39,7 +39,6 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     getline(SStr, temp, '\n');
     row = UploadUnclassCommand::toVectorString(temp);
     int size = row.size();
-    int counter = 0;//****************************************************************
     Database db(row);
     vect.push_back(db);
     if (temp.length() != 0) {
@@ -47,9 +46,7 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     } else {
         throw exception();
     }
-    counter++;//********************************************************8
     while (getline(SStr, temp, '\n')) {
-        counter++;//********************************************************8
         row.clear();
         row = UploadUnclassCommand::toVectorString(temp);
         if (size != row.size()){
@@ -57,15 +54,12 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
                 cout << elem << " ";
             }
             cout << endl;
-            cout << "ROW SIZE COUNTER: " << counter << " SIZE: " << size << " ROW SIZE: " << row.size() << endl;//*********************************************************
             throw exception();
         }
         for (auto& elem : row) {
                 cout << elem << " ";
             }
-        cout << "DB COUNTER: " << counter << endl;//*********************************************************
         Database db(row);
-        cout << "DB FINISHED: " << counter << endl;//*********************************************************
         vect.push_back(db);
     }
     return vect;
@@ -74,6 +68,10 @@ void UploadUnclassCommand::execute() {
     Command::m_dio->write("Please upload your local train CSV file.");
     string data = Command::m_dio->read();
     if (data == "-1") {
+        Command::m_currentData->clearClassifyVect();
+        Command::m_currentData->clearUnClassifyVect();
+        Command::m_currentData->setDataUpload(false);
+        Command::m_currentData->setDataSort(false);
         return;
     }
     try {
@@ -86,6 +84,13 @@ void UploadUnclassCommand::execute() {
     Command::m_dio->write("Upload complete.");
     Command::m_dio->write("Please upload your local test CSV file.");
     data = Command::m_dio->read();
+    if (data == "-1") {
+        Command::m_currentData->clearClassifyVect();
+        Command::m_currentData->clearUnClassifyVect();
+        Command::m_currentData->setDataUpload(false);
+        Command::m_currentData->setDataSort(false);
+        return;
+    }
     try {
         Command::m_currentData->setUnClassifyVect(UploadUnclassCommand::createDatabase(data));
     } catch(exception e) {

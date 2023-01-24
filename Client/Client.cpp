@@ -112,6 +112,7 @@ int main(int argc, char** argv) {
                 }
             } else if(input == "8") {
                 sockio.write(input);
+                close(sock);
                 break;
             }
         } else {
@@ -122,7 +123,7 @@ int main(int argc, char** argv) {
                 try {
                     OpenFile classifyFile(input);
                     fileToSend = classifyFile.ClientFile();
-                } catch (int exc) {
+                } catch (exception err) {
                     standio.write("invalid input");
                     sockio.write("-1");
                     fullMsg = sockio.read();
@@ -136,6 +137,10 @@ int main(int argc, char** argv) {
             }
         }
         fullMsg = sockio.read();
+        if (fullMsg.empty()) {
+            close(sock);
+            return 0;
+        }
     }
     return 0;
 }

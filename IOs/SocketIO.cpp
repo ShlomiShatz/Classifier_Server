@@ -106,9 +106,8 @@ string SocketIO::read() {
         int expected_data_len = sizeof(buffer);
         int read_bytes = recv(sock, buffer, expected_data_len - 1, 0);
         if (read_bytes == 0) {
-            continue;
-        }
-        else if (read_bytes < 0) {
+            return "";
+        } else if (read_bytes < 0) {
             break;
         }
         string current(buffer);
@@ -129,7 +128,7 @@ string SocketIO::readAll(int length) {
     for (i = 0; i < numPackets; i++) {
         char buffer[4001] = {0};
         int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(sock, buffer, expected_data_len - 1, 0);
+        int read_bytes = recv(sock, buffer, expected_data_len - 1, MSG_WAITALL);
         if (read_bytes == 0) {
             continue;
         }
@@ -143,7 +142,7 @@ string SocketIO::readAll(int length) {
     //cout << "REST: " << rest << endl;
     if (rest == 0) return fullMsg;
     char buffer[rest + 1] = {0};
-    string Buffstr(buffer);
+    // string Buffstr(buffer);
     //cout << "BUFFSTR: " << "***" << Buffstr << "***" << endl;
     int expected_data_len = sizeof(buffer);
     //cout << "size buffer: " << expected_data_len << endl;
@@ -168,6 +167,7 @@ void SocketIO::write(string input) {
     //cout << "---" << current << "---" << endl;
     //Checks for the input and converts to char*
     int data_len = current.length();
+    cout << "DATA LEN: " << data_len << endl;//*************************************************************
     char *data_addr = &current[0];
     //Send the message to the server
     int sent_bytes = send(sock, data_addr, data_len, 0);
