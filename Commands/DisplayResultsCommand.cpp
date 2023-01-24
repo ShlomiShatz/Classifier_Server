@@ -20,6 +20,11 @@ DisplayResultsCommand::DisplayResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_dio = io;
     Command::m_currentData = cd;
 }
+
+/**
+* The function returns the results of the classification in a specific format
+* @return the formatted results
+*/
 string DisplayResultsCommand::getResultInFormat(){
     int size = Command::m_currentData->getUnClassifyVect().size();
     string format = "";
@@ -37,6 +42,7 @@ string DisplayResultsCommand::getResultInFormat(){
 * The function that runs this command
 */
 void DisplayResultsCommand::execute(){
+    //Checks if data was uploaded and classified
     if (!Command::m_currentData->getDataUpload()){
         Command::m_dio->write("please upload data");
         return;
@@ -46,6 +52,7 @@ void DisplayResultsCommand::execute(){
         Command::m_dio->write("please classify the data");
         return;
     }
+    //If so, sends the format
     Command::m_dio->write(getResultInFormat());
     Command::m_dio->read();
 }

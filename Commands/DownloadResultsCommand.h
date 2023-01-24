@@ -10,9 +10,16 @@
 
 using namespace std;
 
+/**
+ * The class incharge of sending the results in a specific manner in order to download it
+*/
 class DownloadResultsCommand : public Command {
 private:
 
+    /**
+    * The function returns the results of the classification in a specific format
+    * @return the formatted results
+    */
     string getResultInFormat();
 
 public:
@@ -28,6 +35,10 @@ public:
     * @param cd the full data structure of this program
     */
     DownloadResultsCommand(DefaultIO* io, CommandData* cd);
+
+    /**
+    * The function that runs this command
+    */
 	void execute();
 
     /**

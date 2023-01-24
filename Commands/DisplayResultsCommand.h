@@ -8,9 +8,19 @@
 
 using namespace std;
 
+/**
+ * The class that incharge of the algorythm settings*************8
+*/
 class DisplayResultsCommand : public Command {
+
 private:
+
+    /**
+    * The function returns the results of the classification in a specific format
+    * @return the formatted results
+    */
     string getResultInFormat();
+
 public:
 	
     /**

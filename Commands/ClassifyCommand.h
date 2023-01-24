@@ -7,13 +7,24 @@
 #include "Command.h"
 #include "../Server/Database.h"
 
-
 using namespace std;
 
+/**
+ * The class that incharge of classifying the vectors
+*/
 class ClassifyCommand : public Command {
 private:
 
+    /**
+    * The function calculates the distance from a vector to the classifiers
+    * @param vect the vector being calculated
+    */
     void calcDistance(vector<double> vect);
+
+    /**
+    * The function get the type of the K neares neighbors
+    * @return the classification type
+    */
     string getType();
 
 public:

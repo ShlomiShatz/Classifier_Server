@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/**
+ * The class that incharge of exiting the program
+*/
 class ExitCommand : public Command {
 
 public:

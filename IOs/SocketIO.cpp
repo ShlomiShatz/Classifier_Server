@@ -10,10 +10,18 @@
 
 using namespace std;
 
-
+/**
+ * The constructor of the class
+ * @param sock the socket being connected to
+*/
 SocketIO::SocketIO(int sock) : sock(sock) {}
 
+/**
+ * The function that receives data
+ * @return the data received
+*/
 string SocketIO::read() {
+    //Receives the beginning of the data, which is the length of it
     string length = "";
     string receive = "";
     while (receive != "^"){
@@ -29,11 +37,17 @@ string SocketIO::read() {
         string current(buffer);
         receive = current;
     }
+    //Calls the readAll function with the length received
     string message = readAll(stoi(length));
     return message;
 
 }
 
+/**
+ * The function reads the rest of the data based on its length
+ * @param length the length of the received data
+ * @return the full message
+*/
 string SocketIO::readAll(int length) {
     string fullMsg = "";
     int rest = length % 4000;

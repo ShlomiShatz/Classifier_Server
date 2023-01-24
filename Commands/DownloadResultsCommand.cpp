@@ -25,6 +25,7 @@ DownloadResultsCommand::DownloadResultsCommand(DefaultIO* io, CommandData* cd) {
 * The function that runs this command
 */
 void DownloadResultsCommand::execute() {
+    //Checks if the data was uploaded and classified
     if (!Command::m_currentData->getDataUpload()) {
         Command::m_dio->write("please upload data");
         return;
@@ -33,9 +34,15 @@ void DownloadResultsCommand::execute() {
         Command::m_dio->write("please classify the data");
         return;
     }
+    //If so, sends the results
     Command::m_dio->write(getResultInFormat());
     Command::m_dio->read();
 }
+
+/**
+* The function returns the results of the classification in a specific format
+* @return the formatted results
+*/
 string DownloadResultsCommand::getResultInFormat(){
     int size = Command::m_currentData->getUnClassifyVect().size();
     string format = "";

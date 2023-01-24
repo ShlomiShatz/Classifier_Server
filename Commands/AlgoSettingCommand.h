@@ -7,6 +7,9 @@
 
 using namespace std;
 
+/**
+ * The class that incharge of the algorythm settings
+*/
 class AlgoSettingCommand : public Command {
 
 private:

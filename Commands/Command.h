@@ -7,12 +7,18 @@
 
 using namespace std;
 
+/**
+ * The abstract class that represents commands
+*/
 class Command {
 
 protected:
 
+    //The description of this command
     string m_description;
+    //The default IO object for this command
     DefaultIO* m_dio;
+    //The data structure containing all of the information
     CommandData* m_currentData;
 
 public:

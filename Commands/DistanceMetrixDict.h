@@ -6,15 +6,28 @@
 
 using namespace std;
 
+/**
+ * The class that holds the map for classifing metrics and distances
+*/
 class DistanceMetrixDict{
-    private:
 
-        static map<string, Distance*> m_typeDistance;
-        DistanceMetrixDict();
+private:
 
-    public:
-    
-        static map<string, Distance*> getInstance();
+    //The map containing the information
+    static map<string, Distance*> m_typeDistance;
+
+    /**
+    * The constructor of the class
+    */
+    DistanceMetrixDict();
+
+public:
+
+    /**
+     * Returns the map
+     * @return the distances map
+    */
+    static map<string, Distance*> getInstance();
 };
 
 #endif

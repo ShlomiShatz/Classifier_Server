@@ -36,14 +36,21 @@ ClassifyCommand::ClassifyCommand(DefaultIO* io, CommandData* cd) {
 * @param vect the vector being calculated
 */
 void ClassifyCommand::calcDistance(vector<double> vect) {
-    
+    //Gets the distance map and compares it
     map<string, Distance*> typeDistance = DistanceMetrixDict::getInstance();
     for (Database& elem : Command::m_currentData->getClassifyVect()) {
         elem.setDistRes(typeDistance[Command::m_currentData->getMatric()]->getDistance(elem.getSpecs(), vect));
     }
 }
+
+/**
+* The function get the type of the K neares neighbors
+* @return the classification type
+*/
 string ClassifyCommand::getType(){
+    //Gets the pivot
     double pivot = SelectSort::getK(Command::m_currentData->getClassifyVect(), Command::m_currentData->getCurrentK());
+    //Partitions the data
     SelectSort::partitionFinal(Command::m_currentData->getClassifyVect(), pivot);
     map<string, int> counterMap;
     int i, max = 0;
@@ -70,20 +77,22 @@ string ClassifyCommand::getType(){
 * The function that runs this command
 */
 void ClassifyCommand::execute() {
+    //Checks if data ws uploaded
     if (Command::m_currentData->getClassifyVect().size() == 0){
         m_dio->write("please upload data");
         return;
     }
-    //if need to do it
+    //Checks if the K is correct
     if (Command::m_currentData->getClassifyVect().size() < Command::m_currentData->getCurrentK()){
         m_dio->write("please update your k");
         return;
     }
+    //Classifies each element of the vector
     for (Database& elem : Command::m_currentData->getUnClassifyVect()) {
-
         calcDistance(elem.getSpecs());
         elem.setClassify(getType());
     }
+    //Changes the flag and send the message
     Command::m_currentData->setDataSort(true);
     Command::m_dio->write("classifying data complete");
 }

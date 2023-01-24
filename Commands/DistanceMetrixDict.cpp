@@ -9,13 +9,21 @@
 
 map<string, Distance*> DistanceMetrixDict::m_typeDistance;
 
+/**
+ * Returns the map
+ * @return the distances map
+*/
 map<string, Distance*> DistanceMetrixDict::getInstance() {
+    //Checks if the map already exists, if not - constructs it
     if (m_typeDistance.empty()){
         DistanceMetrixDict();
     }
     return m_typeDistance;
 }
 
+/**
+* The constructor of the class
+*/
 DistanceMetrixDict::DistanceMetrixDict() {
     m_typeDistance["AUC"] = new EuclideanDistance();
     m_typeDistance["MAN"] = new TaxicabGeometry();
