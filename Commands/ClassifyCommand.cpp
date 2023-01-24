@@ -15,8 +15,16 @@
 
 using namespace std;
 
+/**
+* Default constructor
+*/
 ClassifyCommand::ClassifyCommand() {}
 
+/**
+* The constructor of the class
+* @param io the DefaultIO pointer for this command
+* @param cd the full data structure of this program
+*/
 ClassifyCommand::ClassifyCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "classify data";
     Command::m_dio = io;
@@ -51,6 +59,10 @@ string ClassifyCommand::getType(){
     //Returns the maximum
     return maxClass;
 }
+
+/**
+* The function that runs this command
+*/
 void ClassifyCommand::execute() {
     if (Command::m_currentData->getClassifyVect().size() == 0){
         m_dio->write("please upload data");

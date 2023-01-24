@@ -12,10 +12,23 @@ class UploadUnclassCommand : public Command {
     
 public:
 	
+    /**
+    * Default constructor
+    */
     UploadUnclassCommand();
+
+    /**
+    * The constructor of the class
+    * @param io the DefaultIO pointer for this command
+    * @param cd the full data structure of this program
+    */
     UploadUnclassCommand(DefaultIO* io, CommandData* cd);
     string getDescription();
     vector<Database> createDatabase(string input);
+
+    /**
+    * The function that runs this command
+    */
 	void execute();
     vector<string> toVectorString(string s);
     void resetRecords();

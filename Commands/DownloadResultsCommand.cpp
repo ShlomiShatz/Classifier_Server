@@ -5,14 +5,25 @@
 
 using namespace std;
 
+/**
+* Default constructor
+*/
 DownloadResultsCommand::DownloadResultsCommand() {}
 
+/**
+* The constructor of the class
+* @param io the DefaultIO pointer for this command
+* @param cd the full data structure of this program
+*/
 DownloadResultsCommand::DownloadResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "download results";
     Command::m_dio = io;
     Command::m_currentData = cd;
 }
 
+/**
+* The function that runs this command
+*/
 void DownloadResultsCommand::execute() {
     if (!Command::m_currentData->getDataUpload()) {
         Command::m_dio->write("please upload data");

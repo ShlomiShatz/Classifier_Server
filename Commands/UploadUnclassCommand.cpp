@@ -8,20 +8,31 @@
 
 using namespace std;
 
+/**
+* Default constructor
+*/
 UploadUnclassCommand::UploadUnclassCommand() {}
+
+/**
+* The constructor of the class
+* @param io the DefaultIO pointer for this command
+* @param cd the full data structure of this program
+*/
+UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io, CommandData* cd) {
+    Command::m_description = "upload an unclassified csv data file";
+    Command::m_dio = io;
+    Command::m_currentData = cd;
+}
 
 void UploadUnclassCommand::resetRecords() {
         Command::m_currentData->clearClassifyVect();
         Command::m_currentData->clearUnClassifyVect();
         Command::m_currentData->setDataUpload(false);
         Command::m_currentData->setDataSort(false);
+        Command::m_currentData->setMaxK(-1);
+        Command::m_currentData->setCurrentK(5);
+        Command::m_currentData->setMatric("AUC");
         Command::m_dio->write("invalid input");
-}
-
-UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io, CommandData* cd) {
-    Command::m_description = "upload an unclassified csv data file";
-    Command::m_dio = io;
-    Command::m_currentData = cd;
 }
 
 vector<string> UploadUnclassCommand::toVectorString(string s) {
@@ -43,6 +54,7 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     int rowSize = 0;
     stringstream SStr(input);
     getline(SStr, temp, '\n');
+    if (temp.length() == 0) continue;
     row = UploadUnclassCommand::toVectorString(temp);
     int size = row.size();
     Database db(row);
@@ -63,6 +75,10 @@ vector<Database> UploadUnclassCommand::createDatabase(string input){
     }
     return vect;
 }
+
+/**
+* The function that runs this command
+*/
 void UploadUnclassCommand::execute() {
     Command::m_dio->write("Please upload your local train CSV file.");
     string data = Command::m_dio->read();

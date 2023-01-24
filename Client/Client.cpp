@@ -24,13 +24,15 @@ using namespace std;
 void writeToFile(string path, string fullMsg) {
     //Opens a file based on path
     ofstream file(path);
-    //Checks if the file was not open
+    //Checks if the file did not open
     if (!file.is_open()) {
         cout << "file creation: invalid path!" << endl;
         return;
     }
     //Writes to the file
     file << fullMsg;
+    //Closes the file
+    file.close();
 }
 
 /**
@@ -113,41 +115,54 @@ int main(int argc, char** argv) {
             if(input == "5") {
                 //Takes the server input to see if it is able to send file
                 fullMsg = sockio.read();
+                //If it is able to send the data, reads a path and creates a thread
                 if (fullMsg.find("please upload data") == string::npos && fullMsg.find("please classify the data") == string::npos) {
                     string path = standio.read();
                     thread t(writeToFile, path, fullMsg);
+                    //Detaches the thread
                     t.detach();
+                    //Sends a message to continue the server's work
                     sockio.write(" ");
                 } else {
+                    //If the server was not able to send data, continue the loop
                     continue;
                 }
+            //Checks if the user wants to close the program
             } else if(input == "8") {
+                //Sends the message to the server and closes the socket
                 sockio.write(input);
                 close(sock);
                 break;
             }
         } else {
+            //If there were not any special symnols, check for different input
             standio.write(fullMsg);
+            //Checks if needs to upload csv files
             if(fullMsg.find("Please upload your local train CSV file.") != string::npos || fullMsg.find("Please upload your local test CSV file.") != string::npos) {
+                //Takes a path from the user
                 string input = standio.read();
                 string fileToSend;
+                //Tries to open the opened file
                 try {
                     OpenFile classifyFile(input);
                     fileToSend = classifyFile.ClientFile();
+                //If failed, sends an appropriate message
                 } catch (exception err) {
-                    standio.write("invalid input");
                     sockio.write("-1");
                     fullMsg = sockio.read();
                     continue;
                 }
                 try {
+                    //If it was opened, sends the file to the server
                     sockio.write(fileToSend);
                 } catch (exception &err) {
                     standio.write("failed to send file");
                 }
             }
         }
+        //At the bottom of the loop, reads data and continues the loop
         fullMsg = sockio.read();
+        //If an empty message was read, closes the socket and the program
         if (fullMsg.empty()) {
             close(sock);
             return 0;

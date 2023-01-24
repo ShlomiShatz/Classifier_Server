@@ -5,8 +5,16 @@
 
 using namespace std;
 
+/**
+* Default constructor
+*/
 DisplayResultsCommand::DisplayResultsCommand() {}
 
+/**
+* The constructor of the class
+* @param io the DefaultIO pointer for this command
+* @param cd the full data structure of this program
+*/
 DisplayResultsCommand::DisplayResultsCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "display results";
     Command::m_dio = io;
@@ -24,6 +32,10 @@ string DisplayResultsCommand::getResultInFormat(){
     format = format + "Done.~~~";
     return format;
 }
+
+/**
+* The function that runs this command
+*/
 void DisplayResultsCommand::execute(){
     if (!Command::m_currentData->getDataUpload()){
         Command::m_dio->write("please upload data");

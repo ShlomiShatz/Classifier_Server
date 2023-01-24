@@ -13,8 +13,21 @@ private:
     string getResultInFormat();
 public:
 	
+    /**
+    * Default constructor
+    */
     DisplayResultsCommand();
+
+    /**
+    * The constructor of the class
+    * @param io the DefaultIO pointer for this command
+    * @param cd the full data structure of this program
+    */
     DisplayResultsCommand(DefaultIO* io, CommandData* cd);
+
+    /**
+    * The function that runs this command
+    */
 	void execute();
     string getDescription();
 };

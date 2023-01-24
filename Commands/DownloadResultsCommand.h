@@ -17,7 +17,16 @@ private:
 
 public:
 
+    /**
+    * Default constructor
+    */
     DownloadResultsCommand();
+
+    /**
+    * The constructor of the class
+    * @param io the DefaultIO pointer for this command
+    * @param cd the full data structure of this program
+    */
     DownloadResultsCommand(DefaultIO* io, CommandData* cd);
 	void execute();
     string getDescription();

@@ -17,6 +17,9 @@ protected:
 
 public:
 
+    /**
+    * The function that runs this command
+    */
 	virtual void execute() = 0;
 
     virtual string getDescription() = 0;
