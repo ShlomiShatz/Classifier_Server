@@ -16,19 +16,28 @@
 
 using namespace std;
 
-void writeToFile(string path, string fullMsg){
+/**
+* The function that creates a file with the server's message
+* @param path the path of the file, passed by the user
+* @param fullMsg the server's message to be inserted to the file
+*/
+void writeToFile(string path, string fullMsg) {
+    //Opens a file based on path
     ofstream file(path);
+    //Checks if the file was not open
     if (!file.is_open()) {
         cout << "file creation: invalid path!" << endl;
+        return;
     }
+    //Writes to the file
     file << fullMsg;
 }
 
 /**
-    * The main function of the client
-    * @param argc number of commandline parameters
-    * @param argv the commandline parameters
-    */
+* The main function of the client
+* @param argc the number of commandline arguments
+* @param argv the commandline arguments
+*/
 int main(int argc, char** argv) {
 
     //Checks for enough arguments before trying to access it
@@ -75,29 +84,34 @@ int main(int argc, char** argv) {
     //The loop that runs the client
     string fullMsg = sockio.read();
     while (true) {
-        //Takes the full message from the server
+        //Takes the full message from the server and fixes the message
         int finish = fullMsg.find("~~~");
         if (finish != string::npos) {
             fullMsg = fullMsg.erase(finish, string::npos);
             standio.write(fullMsg);
             string input = standio.read();
+            //Writes back to the server
             try {
                 sockio.write(input);
             } catch (exception &err) {
                 cout << "failed to send message" << endl;
             }
+        //Takes the full message from the server and fixes the message
         } else if (fullMsg.find("|||") != string::npos) {
             finish = fullMsg.find("|||");
             fullMsg = fullMsg.erase(finish, string::npos);
             standio.write(fullMsg);
             string input = standio.read();
+            //Writes back to the server
             try {
                 sockio.write(input);
             } catch (exception &err) {
                 cout << "failed to send message" << endl;
                 continue;
             }
+            //Checks if the user wants to open a new file
             if(input == "5") {
+                //Takes the server input to see if it is able to send file
                 fullMsg = sockio.read();
                 if (fullMsg.find("please upload data") == string::npos && fullMsg.find("please classify the data") == string::npos) {
                     string path = standio.read();

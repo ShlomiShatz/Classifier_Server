@@ -18,6 +18,7 @@ public:
     vector<Database> createDatabase(string input);
 	void execute();
     vector<string> toVectorString(string s);
+    void resetRecords();
     
 };
 

@@ -10,6 +10,14 @@ using namespace std;
 
 UploadUnclassCommand::UploadUnclassCommand() {}
 
+void UploadUnclassCommand::resetRecords() {
+        Command::m_currentData->clearClassifyVect();
+        Command::m_currentData->clearUnClassifyVect();
+        Command::m_currentData->setDataUpload(false);
+        Command::m_currentData->setDataSort(false);
+        Command::m_dio->write("invalid input");
+}
+
 UploadUnclassCommand::UploadUnclassCommand(DefaultIO* io, CommandData* cd) {
     Command::m_description = "upload an unclassified csv data file";
     Command::m_dio = io;
@@ -59,37 +67,31 @@ void UploadUnclassCommand::execute() {
     Command::m_dio->write("Please upload your local train CSV file.");
     string data = Command::m_dio->read();
     if (data == "-1") {
-        Command::m_currentData->clearClassifyVect();
-        Command::m_currentData->clearUnClassifyVect();
-        Command::m_currentData->setDataUpload(false);
-        Command::m_currentData->setDataSort(false);
+        UploadUnclassCommand::resetRecords();
         return;
     }
     try {
         Command::m_currentData->setClassifyVect(UploadUnclassCommand::createDatabase(data));
         Command::m_currentData->setMaxK(Command::m_currentData->getClassifyVect().size());
     } catch(exception e) {
-        Command::m_dio->write("invalid input");
+        UploadUnclassCommand::resetRecords();
         return;
     }
     Command::m_dio->write("Upload complete.");
     Command::m_dio->write("Please upload your local test CSV file.");
     data = Command::m_dio->read();
     if (data == "-1") {
-        Command::m_currentData->clearClassifyVect();
-        Command::m_currentData->clearUnClassifyVect();
-        Command::m_currentData->setDataUpload(false);
-        Command::m_currentData->setDataSort(false);
+        UploadUnclassCommand::resetRecords();
         return;
     }
     try {
         Command::m_currentData->setUnClassifyVect(UploadUnclassCommand::createDatabase(data));
     } catch(exception e) {
-        Command::m_dio->write("invalid input");
-        Command::m_currentData->clearClassifyVect();
-        Command::m_currentData->clearUnClassifyVect();
-        Command::m_currentData->setDataUpload(false);
-        Command::m_currentData->setDataSort(false);
+        UploadUnclassCommand::resetRecords();
+        return;
+    }
+    if (Command::m_currentData->getUnClassifyVect()[0].getSpecs().size() != Command::m_currentData->getClassifyVect()[0].getSpecs().size()) {
+        UploadUnclassCommand::resetRecords();
         return;
     }
     Command::m_currentData->setDataUpload(true);
