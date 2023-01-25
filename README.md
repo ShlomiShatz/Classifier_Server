@@ -35,19 +35,19 @@ Upon running the client with the proper arguments and connecting to the server, 
 Right now, the server waits for the client to choose an option. The options are `1 - 5, 8`, and the client should reply using *ONLY* the number of option(No letters/spaces etc.). If a correct option was entered, the server will response accordingly(details below), otherwise - an `invalid input` message will be sent by the server. The options are:  
 1.  Uploading the necessary data - entering `1` as an answer, will be followed by a message requesting to upload the classified data file that will be the database for further classifications(a 'train' file): `Please upload your local train CSV file.`  
     The client will now need to enter a *VALID* path to an *existing* CSV file, which contains classified vectors and follows these rules:
-    - Each column seperated by `,`, lines seperated by `Enter` key, no spaces at all.  
-    - The values are all *doubles* **except for the rightmost value** which is a *string* containing the classification for this vector.  
+    - Each column seperated by `,`, lines seperated by `Enter` key, no spaces at all. Note - do not finish the vector with a comma.  
+    - The values are all *doubles* **except for the rightmost value** which is a non-empty *string* containing the classification for this vector.  
     - All the vectors are in the same total length.  
     - If empty char will be inserted in the middle of the file the file will be considered invalid input.  
-    - The first line of the file mush contain a vector and not be empty.  
+    - There should be no empty lines in the file.  
     If an invalid path/file was entered, an `invalid input` message will be printed and the client will go back to the main menu.  
     
     If a valid file was uploaded, the message `Upload complete.` will be printed, followed by: `Please upload your local test CSV file.`, asking for a path to an  *unclassified CSV file* that will be classified(a 'test' file). The path has the same restrictions as the last one. The unclassified CSV file needs to be made as such:  
-    - Each column seperated by `,`, lines seperated by `Enter` key, no spaces at all.  
+    - Each column seperated by `,`, lines seperated by `Enter` key, no spaces at all. Note - do not finish the vector with a comma.  
     - The values are all *doubles*, and **NO** classification. 
     - All the vectors are in the same total length, and the total length of the vector is $-1$ the size of the classified file's vectors(No classifications this time).  
     - If empty char will be inserted in the middle of the file the file will be considered invalid input.  
-    - The first line of the file mush contain a vector and not be empty.  
+    - There should be no empty lines in the file.   
     If an invalid path/file(such as a classified file) was entered, an `invalid input` message will be printed and the client will go back to the main menu. The first uploaded file will need to be uploaded again and will NOT be saved in the server.  
     If a valid file was uploaded, the message `Upload complete.` will be printed and the client will be brought back to the main menu.  
     ***NOTE: If an invalid file/path was entered at each of the two times, ALL THE DATA IN THE SERVER WILL BE RESET. Meanning - if a file was uploaded correctly and then an invalid one was - both of them will be needed to be uploaded again. Furthermore - if valid files were uploaded and the client entered `1` again in the main menu, the necessary files will need to be uploaded again(can be different files) and bad input will cause the old files to be deleted from the server.***
