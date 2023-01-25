@@ -43,6 +43,7 @@ int main(int argc, char** argv) {
     try {
         //Checking the validity of the port number
         const int port_no = RecieveCheckServer::numCheck(argv[1]);
+	if (port_no > 65355 || port_no < 1024) throw exception();
         //Start up the server
         struct sockaddr_in sin;
         memset(&sin, 0, sizeof(sin));
