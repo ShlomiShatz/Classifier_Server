@@ -8,6 +8,7 @@
 #include <vector>
 #include <fstream>
 #include <thread>
+#include <mutex>
 #include "ClientVectorCheck.h"
 #include "../IOs/SocketIO.h"
 #include "../IOs/StandartIO.h"
@@ -21,18 +22,21 @@ using namespace std;
 * @param path the path of the file, passed by the user
 * @param fullMsg the server's message to be inserted to the file
 */
-void writeToFile(string path, string fullMsg) {
+void writeToFile(string path, string fullMsg, mutex* m) {
+    m->lock();
     //Opens a file based on path
     ofstream file(path);
     //Checks if the file did not open
     if (!file.is_open()) {
         cout << "file creation: invalid path!" << endl;
+        m->unlock();
         return;
     }
     //Writes to the file
     file << fullMsg;
     //Closes the file
     file.close();
+    m->unlock();
 }
 
 /**
@@ -118,7 +122,8 @@ int main(int argc, char** argv) {
                 //If it is able to send the data, reads a path and creates a thread
                 if (fullMsg.find("please upload data") == string::npos && fullMsg.find("please classify the data") == string::npos) {
                     string path = standio.read();
-                    thread t(writeToFile, path, fullMsg);
+                    mutex m;
+                    thread t(writeToFile, path, fullMsg, &m);
                     //Detaches the thread
                     t.detach();
                     //Sends a message to continue the server's work
