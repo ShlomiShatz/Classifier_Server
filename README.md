@@ -35,7 +35,7 @@ Upon running the client with the proper arguments and connecting to the server, 
 Right now, the server waits for the client to choose an option. The options are `1 - 5, 8`, and the client should reply using *ONLY* the number of option(No letters/spaces etc.). If a correct option was entered, the server will response accordingly(details below), otherwise - an `invalid input` message will be sent by the server. The options are:  
 1.  Uploading the necessary data - entering `1` as an answer, will be followed by a message requesting to upload the classified data file that will be the database for further classifications(a 'train' file): `Please upload your local train CSV file.`  
     The client will now need to enter a *VALID* path to an *existing* CSV file, which contains classified vectors and follows these rules:
-    - Each column seperated by `,`, lines seperated by `Enter` key.  
+    - Each column seperated by `,`, lines seperated by `Enter` key, no spaces at all.  
     - The values are all *doubles* **except for the rightmost value** which is a *string* containing the classification for this vector.  
     - All the vectors are in the same total length.  
     - If empty char will be inserted in the middle of the file the file will be considered invalid input.  
@@ -43,7 +43,7 @@ Right now, the server waits for the client to choose an option. The options are 
     If an invalid path/file was entered, an `invalid input` message will be printed and the client will go back to the main menu.  
     
     If a valid file was uploaded, the message `Upload complete.` will be printed, followed by: `Please upload your local test CSV file.`, asking for a path to an  *unclassified CSV file* that will be classified(a 'test' file). The path has the same restrictions as the last one. The unclassified CSV file needs to be made as such:  
-    - Each column seperated by `,`, lines seperated by `Enter` key.  
+    - Each column seperated by `,`, lines seperated by `Enter` key, no spaces at all.  
     - The values are all *doubles*, and **NO** classification. 
     - All the vectors are in the same total length, and the total length of the vector is $-1$ the size of the classified file's vectors(No classifications this time).  
     - If empty char will be inserted in the middle of the file the file will be considered invalid input.  
