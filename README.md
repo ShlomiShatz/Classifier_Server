@@ -60,7 +60,7 @@ Right now, the server waits for the client to choose an option. The options are 
     * More than one exponent sign is invalid (e.g. `1e1e1`).  
     
 2. The algorithm settings - the method used to define the settings for this classification. After entering `2` as the option chosen, the server will send the current settings of the classification, which by default are: `The current KNN parameters are: K = 5, distance metric = AUC`(The metric options explanation are below). If you are the client and wish to change these settings, just enter two parameters seperated by space: `[K value] [Metric]`. Note that entering more than two parameters will cause an `invalid input` message. The restrictions for the parameters are:  
-    I. The K value - this will determine the number of closest neighbors to be classified by. It must be a natural number in the range of $1 ≤ K ≤ n$ where $n$ is the number of vectors in the database. Deviating from this will cause an `invalid value for K` message to be printed. The default value is 5.    
+    I. The K value - this will determine the number of closest neighbors to be classified by. It must be a natural number in the range of $1 ≤ K ≤ n$ where $n$ is the number of vectors in the database. Deviating from this will cause an `invalid value for K` message to be printed. The default value is 5. Note - the K cannot be changed until the data files were uploaded.    
     II. The metric - this will determine the specific way to calculate the distance between the vectors. There are currently 5 options to choose from, insert the string as presented at the begining of each option to use that distance:  
     - `AUC` for Euclidean distance(The default metric).  
     - `MAN` for Manhattan distance(Taxicab geometry).  
