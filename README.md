@@ -71,7 +71,7 @@ Right now, the server waits for the client to choose an option. The options are 
     If both of the parameters are wrong, both of the error message will be printed.  
     After entering the parameters, the client will be brought back to the main menu. Note: if you do not wish to change the current settings, just hit `Enter` and you will be brought back to main menu.  
     
-3. Classifying the data - choosing the third option will classify the uploaded data. after classification(in larger files might take some time), the message `classifying data complete` will be printed and the client will return to the main menu. Note - the client MUST upload the data correctly before trying to classify it, or the message `please upload data` will be printed.  
+3. Classifying the data - choosing the third option will classify the uploaded data. after classification(in larger files might take some time), the message `classifying data complete` will be printed and the client will return to the main menu. Note - the client MUST upload the data correctly before trying to classify it, or the message `please upload data` will be printed. In addition if k is bigger than the rows size of the classify file, the message `please update your k` will be printed.
 
 4. Displaying the classified data - choosing the fourth option will print the classified data, based on the unclassified vectors by numeric order, followed by a `Done.` message. For example:  
 ![image](https://user-images.githubusercontent.com/86709272/214524200-d06bfc96-d088-41a2-9931-a92138c1c1fb.png)  
