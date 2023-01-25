@@ -30,7 +30,7 @@ To run each client, while the server program is running, in a seperate terminal/
 ***Every deviation from the instructions above will cause an error and the program to close(e.g. inserting a port number that was not correct).***
 
 ### Using the Classifier
-Upon running the client with the proper arguments and connecting to the server, the client will see the main menu of the server:
+Upon running the client with the proper arguments and connecting to the server, the client will see the main menu of the server:  
 ![image](https://user-images.githubusercontent.com/86709272/214510845-9d9c6bea-2335-441a-b26a-1e0cea4defa3.png)  
 Right now, the server waits for the client to choose an option. The options are `1 - 5, 8`, and the client should reply using *ONLY* the number of option(No letters/spaces etc.). If a correct option was entered, the server will response accordingly(details below), otherwise - an `invalid input` message will be sent by the server. The options are:  
 1.  Uploading the necessary data - entering `1` as an answer, will be followed by a message requesting to upload the classified data file that will be the database for further classifications(a 'train' file): `Please upload your local train CSV file.`  
